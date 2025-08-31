@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>الدعم والأسئلة الشائعة | TechZone</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: 'Cairo', sans-serif; margin: 0; background: #f5f7fa; color: #333; }
+    header { background: #0d1b2a; color: white; padding: 20px; text-align: center; }
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      padding: 0;
+      margin: 10px 0 0;
+    }
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+    }
+    .container {
+      max-width: 900px; margin: 40px auto; padding: 20px;
+      background: white; border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+
+    h2 { margin-top: 0; }
+
+    .faq {
+      margin-bottom: 40px;
+    }
+
+    .faq-item {
+      margin-bottom: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .faq-question {
+      background: #f1f1f1;
+      padding: 15px;
+      cursor: pointer;
+      font-weight: bold;
+      border-radius: 8px;
+    }
+
+    .faq-answer {
+      display: none;
+      padding: 10px 15px;
+      background: #fff;
+      border-radius: 0 0 8px 8px;
+    }
+
+    .contact-form label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .contact-form input, .contact-form textarea {
+      width: 100%; padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    .contact-form button {
+      background: #0d1b2a;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .contact-links {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .contact-links a {
+      display: inline-block;
+      margin: 10px;
+      color: #00aaff;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    /* 1. ظهور انسيابي مع تحريك 3D */
+@keyframes fadeIn3DSlide {
+  0% {
+    opacity: 0;
+    transform: translateY(40px) rotateX(25deg) scale(0.85);
+    filter: brightness(0.7);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotateX(0deg) scale(1);
+    filter: brightness(1);
+  }
+}
+
+/* 2. الحاوية الرئيسية */
+.container {
+  animation: fadeIn3DSlide 0.9s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  opacity: 0;
+  animation-delay: 0.2s;
+  perspective: 1200px;
+  transform-style: preserve-3d;
+}
+
+/* 3. عناصر FAQ */
+.faq-item {
+  margin-bottom: 20px;
+  border-radius: 12px;
+  box-shadow:
+    0 0 10px rgba(0, 0, 0, 0.04),
+    inset 0 0 8px rgba(0, 170, 255, 0.1);
+  transition: box-shadow 0.5s ease;
+  background: #fff;
+  transform-style: preserve-3d;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ظل متحرك ديناميكي عند hover */
+.faq-item:hover {
+  box-shadow:
+    0 8px 30px rgba(0, 170, 255, 0.3),
+    inset 0 0 20px rgba(0, 170, 255, 0.15);
+  cursor: pointer;
+}
+
+/* 4. السؤال بتأثير 3D وتحريك السهم */
+.faq-question {
+  background: linear-gradient(135deg, #00aaff, #005f99);
+  color: white;
+  padding: 18px 25px;
+  font-weight: 700;
+  font-size: 18px;
+  border-radius: 12px 12px 0 0;
+  position: relative;
+  user-select: none;
+  transform-style: preserve-3d;
+  box-shadow:
+    0 4px 15px rgba(0, 170, 255, 0.4);
+  transition:
+    background 0.5s ease,
+    box-shadow 0.5s ease,
+    transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* حركة خفيفة 3D عند التمرير */
+.faq-question:hover {
+  transform: translateZ(15px) rotateX(3deg);
+  box-shadow:
+    0 10px 30px rgba(0, 170, 255, 0.7);
+}
+
+/* السهم المتحرك 3D */
+.faq-question::after {
+  content: '❯';
+  position: absolute;
+  right: 25px;
+  top: 50%;
+  transform: translateY(-50%) rotate(0deg);
+  font-size: 22px;
+  color: rgba(255, 255, 255, 0.8);
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), color 0.4s ease;
+  transform-origin: center;
+  backface-visibility: hidden;
+}
+
+/* عند الفتح، السهم يدور 90 درجة */
+.faq-question.active::after {
+  transform: translateY(-50%) rotate(90deg) translateX(4px);
+  color: #ffd700;
+  text-shadow: 0 0 8px #ffd700;
+}
+
+/* 5. الإجابة بتأثير فتح سلس مع عمق */
+.faq-answer {
+  max-height: 0;
+  opacity: 0;
+  padding: 0 25px;
+  background: #f9fbff;
+  border-radius: 0 0 12px 12px;
+  box-shadow: inset 0 0 20px rgba(0, 170, 255, 0.05);
+  transition:
+    max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.6s ease,
+    padding 0.4s ease;
+  transform-style: preserve-3d;
+  transform-origin: top center;
+  perspective: 600px;
+  transform: translateZ(0);
+}
+
+/* عند التفعيل، يظهر المحتوى */
+.faq-answer.open {
+  max-height: 800px; /* كافٍ للإجابات الطويلة */
+  opacity: 1;
+  padding: 15px 25px 20px;
+}
+
+/* 6. نموذج التواصل مع تأثير توهج 3D */
+.contact-form {
+  background: linear-gradient(145deg, #eaf4ff, #c3dbff);
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow:
+    0 15px 35px rgba(0, 170, 255, 0.35),
+    inset 0 0 20px rgba(0, 119, 204, 0.4);
+  transform-style: preserve-3d;
+  animation: fadeIn3DSlide 1s ease forwards;
+  opacity: 0;
+  animation-delay: 0.4s;
+}
+
+/* الحقول مع ظل داخلي وتأثير تركيز */
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 14px 18px;
+  margin-bottom: 20px;
+  border-radius: 12px;
+  border: 1.5px solid #a1caff;
+  box-shadow: inset 0 2px 8px rgba(0, 119, 204, 0.15);
+  font-size: 16px;
+  transition:
+    border-color 0.4s ease,
+    box-shadow 0.4s ease;
+  outline: none;
+  background: #f0f7ff;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: #00aaff;
+  box-shadow:
+    0 0 18px rgba(0, 170, 255, 0.8),
+    inset 0 0 12px rgba(0, 170, 255, 0.5);
+}
+
+/* زر الإرسال بتأثير توهج ديناميكي */
+.contact-form button {
+  background: linear-gradient(135deg, #005f99, #00aaff);
+  color: white;
+  font-weight: 900;
+  padding: 15px 25px;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+  box-shadow:
+    0 0 15px rgba(0, 170, 255, 0.7),
+    0 5px 25px rgba(0, 119, 204, 0.6);
+  transition:
+    background 0.5s ease,
+    box-shadow 0.5s ease,
+    transform 0.3s ease;
+  transform-style: preserve-3d;
+}
+
+.contact-form button:hover {
+  background: linear-gradient(135deg, #00c0ff, #007acc);
+  box-shadow:
+    0 0 28px rgba(0, 198, 255, 1),
+    0 8px 38px rgba(0, 150, 255, 0.9);
+  transform: scale(1.12) translateZ(15px);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.9);
+}
+
+/* روابط الاتصال مع توهج متحرك */
+.contact-links a {
+  color: #0077cc;
+  font-weight: 700;
+  text-decoration: none;
+  position: relative;
+  transition: color 0.4s ease;
+  text-shadow: 0 0 5px rgba(0, 119, 204, 0.5);
+}
+
+.contact-links a::before {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background: #00aaff;
+  border-radius: 4px;
+  transition: width 0.4s ease;
+}
+
+.contact-links a:hover {
+  color: #00aaff;
+  text-shadow: 0 0 10px rgba(0, 170, 255, 1);
+}
+
+.contact-links a:hover::before {
+  width: 100%;
+}
+
+/* تجاوب الأجهزة */
+@media (max-width: 600px) {
+  nav ul {
+    flex-direction: column;
+    gap: 15px;
+  }
+}
+
+  </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+<body>
+
+<header>
+  <h1>🧰 الدعم الفني والأسئلة الشائعة</h1>
+   <nav>
+     <ul>
+  <li><a href="index.html" class="active"><i class="fas fa-home"></i> الرئيسية</a></li>
+  <li><a href="shop.html"><i class="fas fa-store"></i> المنتجات</a></li>
+  <li><a href="product.html"><i class="fas fa-box-open"></i> تفاصيل المنتجات</a></li>
+  <li><a href="cart.html"><i class="fas fa-shopping-cart"></i> السلة</a></li>
+  <li><a href="support.html"><i class="fas fa-headset"></i> الدعم</a></li>
+  <li><a href="search.html"><i class="fas fa-search"></i> البحث</a></li>
+  <li><a href="account.html"><i class="fas fa-user"></i> حسابي</a></li>
+  <li><a href="about.html"><i class="fas fa-info-circle"></i> من نحن</a></li>
+</ul>
+  </nav>
+</header>
+
+<div class="container">
+
+  <section class="faq">
+  <h2>❓ الأسئلة الشائعة</h2>
+
+  <div class="faq-item">
+    <div class="faq-question">ما هي سياسة الاسترجاع؟</div>
+    <div class="faq-answer">يمكنك استرجاع المنتج خلال 14 يومًا من تاريخ الاستلام بشرط عدم فتح العلبة أو استخدامها.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question">كم مدة الضمان على الأجهزة؟</div>
+    <div class="faq-answer">جميع الأجهزة مضمونة لمدة سنة من الوكيل الرسمي.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question">هل يتوفر الدفع عند الاستلام؟</div>
+    <div class="faq-answer">نعم، نوفر خدمة الدفع عند الاستلام داخل بعض المحافظات.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question">كم يستغرق وقت التوصيل؟</div>
+    <div class="faq-answer">من 2 إلى 5 أيام عمل حسب المحافظة.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question">ما هي طرق الدفع المتاحة؟</div>
+    <div class="faq-answer">نقبل الدفع عبر البطاقات الائتمانية، المحافظ الإلكترونية، والدفع عند الاستلام في مناطق محددة.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question">هل الشحن متاح خارج مصر؟</div>
+    <div class="faq-answer">حاليًا، الشحن متاح فقط داخل جمهورية مصر العربية.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question">هل المنتجات أصلية؟</div>
+    <div class="faq-answer">نعم، جميع المنتجات أصلية ومضمونة من الوكلاء المعتمدين.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question">هل هناك عروض أو خصومات مستمرة؟</div>
+    <div class="faq-answer">نعم، نقدم عروض وخصومات موسمية بشكل دوري. تابعنا على وسائل التواصل الاجتماعي أو اشترك في النشرة البريدية.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question">هل يمكن تغيير عنوان التوصيل بعد الطلب؟</div>
+    <div class="faq-answer">نعم، يمكنك تعديل عنوان التوصيل خلال 12 ساعة من إتمام الطلب عن طريق خدمة العملاء.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question">هل هناك رسوم توصيل؟</div>
+    <div class="faq-answer">نعم، تختلف رسوم التوصيل حسب المحافظة وقيمة الطلب، وتُعرض أثناء إنهاء الطلب.</div>
+  </div>
+</section>
+
+
+  <section class="contact-form">
+    <h2>✉️ تواصل معنا مباشرة</h2>
+    <form onsubmit="sendMessage(event)">
+      <label for="name">الاسم</label>
+      <input type="text" id="name" required>
+
+      <label for="message">الرسالة</label>
+      <textarea id="message" rows="4" required></textarea>
+
+      <button type="submit">📨 إرسال</button>
+    </form>
+
+    <div class="contact-links">
+      <h3>📱 روابط سريعة:</h3>
+      <a href="https://wa.me/201234567890" target="_blank">واتساب</a>
+      <a href="mailto:support@techzone.com">البريد الإلكتروني</a>
+    </div>
+  </section>
+
+</div>
+<footer>
+  <div class="footer-container">
+    <div class="footer-section about">
+      <h3>عن الشركة</h3>
+<p>
+  ⚡ TechZone هي شركة رائدة في توزيع وبيع الأجهزة الإلكترونية المتنوعة، نتمتع بخبرة واسعة تمتد لسنوات عديدة في السوق المصري والعالمي. نحن ملتزمون بتقديم أحدث وأفضل المنتجات التي تلبي احتياجات عملائنا بجودة لا مثيل لها وخدمة عملاء متميزة. رؤيتنا هي تسهيل حياة الناس من خلال توفير حلول تكنولوجية مبتكرة، مع ضمان تجربة شراء سلسة وآمنة. في TechZone، نؤمن بأن التكنولوجيا هي مستقبل الحياة، ونحن هنا لنكون شركاؤكم في هذا المستقبل.
+</p>
+    </div>
+    <div class="footer-section links">
+      <h3>روابط مهمة</h3>
+      <ul>
+        <li><a href="#">الرئيسية</a></li>
+        <li><a href="#">المنتجات</a></li>
+        <li><a href="#">عنا</a></li>
+        <li><a href="#">اتصل بنا</a></li>
+        <li><a href="#">سياسة الخصوصية</a></li>
+      </ul>
+    </div>
+    <div class="footer-section contact">
+      <h3>تواصل معنا</h3>
+      <p>📍 العاشر من رمضان - المجاورة 7</p>
+      <p>📞 الهاتف: 0123456789</p>
+      <p>✉ البريد الإلكتروني: TechZone121@gmail.com</p>
+      <div class="social-icons">
+        <a href="#" aria-label="فيسبوك" target="_blank" rel="noopener noreferrer">
+          <svg width="24" height="24" fill="#55acee" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M22 12c0-5.522-4.477-10-10-10S2 6.478 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54v-2.89h2.54v-2.204c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.462h-1.26c-1.243 0-1.63.772-1.63 1.562v1.876h2.773l-.443 2.89h-2.33v6.987C18.343 21.128 22 16.991 22 12z"/>
+          </svg>
+        </a>
+        <a href="#" aria-label="تويتر" target="_blank" rel="noopener noreferrer">
+          <svg width="24" height="24" fill="#1da1f2" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M23 3a10.9 10.9 0 01-3.14.86 4.48 4.48 0 001.98-2.48 9.14 9.14 0 01-2.9 1.1 4.52 4.52 0 00-7.7 4.13A12.86 12.86 0 013 4.78a4.52 4.52 0 001.4 6.04 4.42 4.42 0 01-2.05-.56v.06a4.52 4.52 0 003.63 4.43 4.52 4.52 0 01-2.04.08 4.52 4.52 0 004.21 3.14A9.06 9.06 0 013 19.54a12.84 12.84 0 006.92 2.03c8.3 0 12.85-6.9 12.85-12.85 0-.2 0-.39-.01-.58A9.2 9.2 0 0023 3z"/>
+          </svg>
+        </a>
+        <a href="#" aria-label="إنستغرام" target="_blank" rel="noopener noreferrer">
+          <svg width="24" height="24" fill="#e1306c" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M7 2C4.243 2 2 4.243 2 7v10c0 2.757 2.243 5 5 5h10c2.757 0 5-2.243 5-5V7c0-2.757-2.243-5-5-5H7zm10 3a1 1 0 110 2 1 1 0 010-2zm-5 2.5a4.5 4.5 0 110 9 4.5 4.5 0 010-9zm0 2a2.5 2.5 0 100 5 2.5 2.5 0 000-5z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 جميع الحقوق محفوظة ⚡ TechZone  </p>
+  </div>
+</footer>
+
+<style>
+  footer {
+    background: #001f3f; /* أزرق داكن جداً */
+    color: #eee; /* نص فاتح */
+    font-family: 'Cairo', sans-serif;
+    user-select: none;
+  }
+  .footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1100px;
+    margin: auto;
+    padding: 40px 20px 25px;
+  }
+  .footer-section {
+    flex: 1 1 280px;
+    margin: 10px 20px;
+  }
+  .footer-section h3 {
+    font-size: 22px;
+    margin-bottom: 20px;
+    letter-spacing: 0.04em;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    color: #fff;
+  }
+  .footer-section p, 
+  .footer-section ul {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #ddd;
+  }
+  .footer-section ul {
+    list-style: none;
+    padding: 0;
+  }
+  .footer-section ul li {
+    margin-bottom: 12px;
+  }
+  .footer-section ul li a {
+    color: #a0cfff; /* أزرق فاتح */
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  .footer-section ul li a:hover {
+    color: #00aaff;
+    text-decoration: underline;
+  }
+
+  /* أيقونات التواصل */
+  .social-icons {
+    margin-top: 15px;
+    display: flex;
+    gap: 18px;
+  }
+  .social-icons a {
+    display: inline-block;
+    transition: transform 0.3s ease, filter 0.3s ease;
+    filter: drop-shadow(0 0 2px rgba(0,0,0,0.4));
+  }
+  .social-icons a:hover {
+    transform: scale(1.2);
+    filter: drop-shadow(0 0 6px #00aaff);
+  }
+
+  /* القسم الأسفل */
+  .footer-bottom {
+    background: #000c19; /* أزرق غامق جداً */
+    text-align: center;
+    padding: 18px 10px;
+    font-size: 14px;
+    letter-spacing: 0.02em;
+    color: #bbb;
+    user-select: none;
+  }
+
+  /* استجابة */
+  @media (max-width: 768px) {
+    .footer-container {
+      flex-direction: column;
+      padding: 30px 20px 20px;
+    }
+    .footer-section {
+      margin: 20px 0;
+    }
+  }
+</style>
+<script>
+  // أكورديون الأسئلة
+  document.querySelectorAll(".faq-question").forEach(item => {
+    item.addEventListener("click", () => {
+      const answer = item.nextElementSibling;
+      answer.style.display = (answer.style.display === "block") ? "none" : "block";
+    });
+  });
+
+  // إرسال رسالة
+  function sendMessage(e) {
+    e.preventDefault();
+    const name = document.getElementById("name").value.trim();
+    const msg = document.getElementById("message").value.trim();
+
+    if (!name || !msg) {
+      alert("❗ الرجاء تعبئة الاسم والرسالة.");
+      return;
+    }
+
+    alert("✅ تم إرسال الرسالة! سنتواصل معك قريبًا.");
+    document.getElementById("name").value = "";
+    document.getElementById("message").value = "";
+  }
+
+
+  document.querySelectorAll('.faq-question').forEach(question => {
+  question.addEventListener('click', () => {
+    const active = question.classList.contains('active');
+    // أغلق كل الأسئلة المفتوحة أولاً
+    document.querySelectorAll('.faq-question.active').forEach(q => q.classList.remove('active'));
+    document.querySelectorAll('.faq-answer.open').forEach(a => a.classList.remove('open'));
+
+    if (!active) {
+      question.classList.add('active');
+      question.nextElementSibling.classList.add('open');
+    }
+  });
+});
+
+</script>
+
+</body>
+</html>

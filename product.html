@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>تفاصيل المنتج | TechZone</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+   body {
+  font-family: 'Cairo', sans-serif;
+  margin: 0;
+  background: #f9f9fb;
+  color: #333;
+  scroll-behavior: smooth;
+}
+
+/* ===== رأس الصفحة + القائمة ===== */
+header {
+  background: #0d1b2a;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  animation: fadeDown 1s ease-out both;
+}
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  padding: 0;
+  margin: 10px 0 0;
+  animation: fadeIn 1.2s ease both;
+}
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  position: relative;
+}
+nav ul li a::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  left: 0;
+  bottom: -5px;
+  background: #00aaff;
+  transition: width 0.4s ease;
+}
+nav ul li a:hover::after {
+  width: 100%;
+}
+
+/* ===== المحتوى الرئيسي ===== */
+.container {
+  max-width: 1100px;
+  margin: 30px auto;
+  padding: 15px;
+  animation: fadeInUp 1.2s ease both;
+}
+.product {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+/* ===== الصور ===== */
+.images {
+  flex: 1 1 40%;
+  animation: zoomFade 1s ease both;
+}
+.images img {
+  width: 100%;
+  height: 450px;
+  object-fit: cover;
+  border-radius: 10px;
+  transition: transform 0.5s ease;
+}
+.images img:hover {
+  transform: scale(1.05);
+}
+.thumbs {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+.thumbs img {
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+  border-radius: 6px;
+  border: 2px solid transparent;
+  transition: transform 0.4s ease, border-color 0.3s;
+}
+.thumbs img:hover {
+  border-color: #00aaff;
+  transform: scale(1.2) rotate(5deg);
+}
+
+/* ===== التفاصيل ===== */
+.details {
+  flex: 1 1 55%;
+  animation: slideInRight 1s ease both;
+}
+.details h1 {
+  font-size: 26px;
+  margin-bottom: 10px;
+}
+.price {
+  color: #00aaff;
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+.stars {
+  color: gold;
+  margin-bottom: 15px;
+  font-size: 18px;
+  animation: sparkle 2s infinite;
+}
+
+/* ===== المواصفات ===== */
+.specs ul {
+  padding: 15px;
+  list-style: none;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+  margin-bottom: 15px;
+  animation: fadeInUp 1.5s ease both;
+}
+.specs li {
+  padding: 5px 0;
+  border-bottom: 1px solid #eee;
+}
+
+/* ===== وصف، كمية، زر ===== */
+.description {
+  margin-bottom: 20px;
+}
+.quantity {
+  margin: 10px 0;
+}
+.quantity input {
+  width: 50px;
+  padding: 5px;
+  text-align: center;
+}
+
+button {
+  background: #0d1b2a;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  position: relative;
+  overflow: hidden;
+  animation: pulseWave 2s infinite;
+  transition: background 0.4s ease, transform 0.3s ease;
+}
+button:hover {
+  background: #0088cc;
+  transform: scale(1.05);
+}
+
+/* ===== المنتجات المقترحة ===== */
+.suggested {
+  margin-top: 50px;
+}
+.suggested h2 {
+  margin-bottom: 20px;
+  animation: fadeIn 1s ease both;
+}
+.suggested-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 20px;
+}
+.product-card {
+  background: white;
+  padding: 10px;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transition: transform 0.4s ease, box-shadow 0.3s ease;
+  animation: floatCard 4s infinite ease-in-out alternate;
+}
+.product-card:hover {
+  transform: translateY(-8px) scale(1.05);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+}
+.product-card img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 6px;
+  transition: transform 0.4s ease;
+}
+.product-card img:hover {
+  transform: scale(1.1);
+}
+.product-card h4 {
+  margin: 10px 0 5px;
+  font-size: 15px;
+}
+.product-card .price {
+  color: #00aaff;
+}
+
+/* ===== أنيميشن متقدمة ===== */
+@keyframes fadeDown {
+  from {opacity: 0; transform: translateY(-30px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+@keyframes fadeInUp {
+  from {opacity: 0; transform: translateY(40px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+@keyframes slideInRight {
+  from {opacity: 0; transform: translateX(40px);}
+  to {opacity: 1; transform: translateX(0);}
+}
+@keyframes zoomFade {
+  0% {opacity: 0; transform: scale(0.9);}
+  100% {opacity: 1; transform: scale(1);}
+}
+@keyframes pulseWave {
+  0% {box-shadow: 0 0 0 0 rgba(0,170,255, 0.4);}
+  70% {box-shadow: 0 0 0 20px rgba(0,170,255, 0);}
+  100% {box-shadow: 0 0 0 0 rgba(0,170,255, 0);}
+}
+@keyframes sparkle {
+  0%, 100% {text-shadow: 0 0 4px gold;}
+  50% {text-shadow: 0 0 8px gold;}
+}
+@keyframes floatCard {
+  0% {transform: translateY(0);}
+  100% {transform: translateY(-5px);}
+}
+
+  </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+<body>
+
+<header>
+  <h1>🖥️ تفاصيل المنتج</h1>
+  <nav>
+    <ul>
+  <li><a href="index.html" class="active"><i class="fas fa-home"></i> الرئيسية</a></li>
+  <li><a href="shop.html"><i class="fas fa-store"></i> المنتجات</a></li>
+  <li><a href="product.html"><i class="fas fa-box-open"></i> تفاصيل المنتجات</a></li>
+  <li><a href="cart.html"><i class="fas fa-shopping-cart"></i> السلة</a></li>
+  <li><a href="support.html"><i class="fas fa-headset"></i> الدعم</a></li>
+  <li><a href="search.html"><i class="fas fa-search"></i> البحث</a></li>
+  <li><a href="account.html"><i class="fas fa-user"></i> حسابي</a></li>
+  <li><a href="about.html"><i class="fas fa-info-circle"></i> من نحن</a></li>
+</ul>
+  </nav>
+</header>
+
+<div class="container">
+  <div class="product">
+    <div class="images">
+      <img id="mainImage" src="" alt="منتج" />
+      <div class="thumbs" id="thumbsContainer"></div>
+    </div>
+    <div class="details">
+      <h1 id="productName"></h1>
+      <div class="price" id="productPrice"></div>
+      <div class="stars" id="productRating"></div>
+      <div class="specs">
+        <ul id="productSpecs"></ul>
+      </div>
+      <div class="description" id="productDescription"></div>
+      <div class="quantity">
+        الكمية: <input type="number" id="qty" value="1" min="1" />
+      </div>
+      <button onclick="addToCart()">🛒 أضف إلى السلة</button>
+    </div>
+  </div>
+
+  <div class="suggested">
+    <h2>منتجات مشابهة</h2>
+    <div class="suggested-grid" id="suggestedContainer"></div>
+  </div>
+</div>
+<footer>
+  <div class="footer-container">
+    <div class="footer-section about">
+      <h3>عن الشركة</h3>
+<p>
+  ⚡ TechZone هي شركة رائدة في توزيع وبيع الأجهزة الإلكترونية المتنوعة، نتمتع بخبرة واسعة تمتد لسنوات عديدة في السوق المصري والعالمي. نحن ملتزمون بتقديم أحدث وأفضل المنتجات التي تلبي احتياجات عملائنا بجودة لا مثيل لها وخدمة عملاء متميزة. رؤيتنا هي تسهيل حياة الناس من خلال توفير حلول تكنولوجية مبتكرة، مع ضمان تجربة شراء سلسة وآمنة. في TechZone، نؤمن بأن التكنولوجيا هي مستقبل الحياة، ونحن هنا لنكون شركاؤكم في هذا المستقبل.
+</p>
+    </div>
+    <div class="footer-section links">
+      <h3>روابط مهمة</h3>
+      <ul>
+        <li><a href="#">الرئيسية</a></li>
+        <li><a href="#">المنتجات</a></li>
+        <li><a href="#">عنا</a></li>
+        <li><a href="#">اتصل بنا</a></li>
+        <li><a href="#">سياسة الخصوصية</a></li>
+      </ul>
+    </div>
+    <div class="footer-section contact">
+      <h3>تواصل معنا</h3>
+      <p>📍 العاشر من رمضان - المجاورة 7</p>
+      <p>📞 الهاتف: 0123456789</p>
+      <p>✉ البريد الإلكتروني: TechZone121@gmail.com</p>
+      <div class="social-icons">
+        <a href="#" aria-label="فيسبوك" target="_blank" rel="noopener noreferrer">
+          <svg width="24" height="24" fill="#55acee" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M22 12c0-5.522-4.477-10-10-10S2 6.478 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54v-2.89h2.54v-2.204c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.462h-1.26c-1.243 0-1.63.772-1.63 1.562v1.876h2.773l-.443 2.89h-2.33v6.987C18.343 21.128 22 16.991 22 12z"/>
+          </svg>
+        </a>
+        <a href="#" aria-label="تويتر" target="_blank" rel="noopener noreferrer">
+          <svg width="24" height="24" fill="#1da1f2" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M23 3a10.9 10.9 0 01-3.14.86 4.48 4.48 0 001.98-2.48 9.14 9.14 0 01-2.9 1.1 4.52 4.52 0 00-7.7 4.13A12.86 12.86 0 013 4.78a4.52 4.52 0 001.4 6.04 4.42 4.42 0 01-2.05-.56v.06a4.52 4.52 0 003.63 4.43 4.52 4.52 0 01-2.04.08 4.52 4.52 0 004.21 3.14A9.06 9.06 0 013 19.54a12.84 12.84 0 006.92 2.03c8.3 0 12.85-6.9 12.85-12.85 0-.2 0-.39-.01-.58A9.2 9.2 0 0023 3z"/>
+          </svg>
+        </a>
+        <a href="#" aria-label="إنستغرام" target="_blank" rel="noopener noreferrer">
+          <svg width="24" height="24" fill="#e1306c" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M7 2C4.243 2 2 4.243 2 7v10c0 2.757 2.243 5 5 5h10c2.757 0 5-2.243 5-5V7c0-2.757-2.243-5-5-5H7zm10 3a1 1 0 110 2 1 1 0 010-2zm-5 2.5a4.5 4.5 0 110 9 4.5 4.5 0 010-9zm0 2a2.5 2.5 0 100 5 2.5 2.5 0 000-5z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 جميع الحقوق محفوظة ⚡ TechZone  </p>
+  </div>
+</footer>
+
+<style>
+  footer {
+    background: #001f3f; /* أزرق داكن جداً */
+    color: #eee; /* نص فاتح */
+    font-family: 'Cairo', sans-serif;
+    user-select: none;
+  }
+  .footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1100px;
+    margin: auto;
+    padding: 40px 20px 25px;
+  }
+  .footer-section {
+    flex: 1 1 280px;
+    margin: 10px 20px;
+  }
+  .footer-section h3 {
+    font-size: 22px;
+    margin-bottom: 20px;
+    letter-spacing: 0.04em;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    color: #fff;
+  }
+  .footer-section p, 
+  .footer-section ul {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #ddd;
+  }
+  .footer-section ul {
+    list-style: none;
+    padding: 0;
+  }
+  .footer-section ul li {
+    margin-bottom: 12px;
+  }
+  .footer-section ul li a {
+    color: #a0cfff; /* أزرق فاتح */
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  .footer-section ul li a:hover {
+    color: #00aaff;
+    text-decoration: underline;
+  }
+
+  /* أيقونات التواصل */
+  .social-icons {
+    margin-top: 15px;
+    display: flex;
+    gap: 18px;
+  }
+  .social-icons a {
+    display: inline-block;
+    transition: transform 0.3s ease, filter 0.3s ease;
+    filter: drop-shadow(0 0 2px rgba(0,0,0,0.4));
+  }
+  .social-icons a:hover {
+    transform: scale(1.2);
+    filter: drop-shadow(0 0 6px #00aaff);
+  }
+
+  /* القسم الأسفل */
+  .footer-bottom {
+    background: #000c19; /* أزرق غامق جداً */
+    text-align: center;
+    padding: 18px 10px;
+    font-size: 14px;
+    letter-spacing: 0.02em;
+    color: #bbb;
+    user-select: none;
+  }
+
+  /* استجابة */
+  @media (max-width: 768px) {
+    .footer-container {
+      flex-direction: column;
+      padding: 30px 20px 20px;
+    }
+    .footer-section {
+      margin: 20px 0;
+    }
+  }
+</style>
+<script>
+  // بيانات المنتجات مع التفاصيل الكاملة
+  const products = [
+    {
+      id: 1,
+      name: "هاتف Samsung A54",
+      price: 12000,
+      rating: 4.2,
+      images: [
+        "img/phon/samsung_a54.jfif",
+        "img/phon/samsung_a54_2.jfif",
+        "img/phon/samsung_a54_3.jfif"
+      ],
+      category: "هواتف",
+      brand: "Samsung",
+      specs: {
+        "الشاشة": "6.4 إنش AMOLED",
+        "الكاميرا": "48MP + 5MP",
+        "البطارية": "5000mAh",
+        "المعالج": "Exynos 1380"
+      },
+      description: "هاتف ذكي مزود بكاميرا ممتازة وشاشة عالية الدقة."
+    },
+    {
+      id: 2,
+      name: "لابتوب HP Pavilion ",
+      price: 15000,
+      rating: 4.9,
+      images: [
+        "img/laptop/HPPavilion1.jfif",
+        "img/laptop/HPPavilion2.jfif",
+        "img/laptop/HPPavilion3.jfif"
+      ],
+      category: "كمبيوتر",
+      brand: "HP",
+      specs: {
+        "المعالج": "Intel Core i7",
+        "الرام": "16GB",
+        "التخزين": "512GB SSD",
+        "الشاشة": "15.6\" FHD"
+      },
+      description: "لابتوب احترافي يتميز بالأداء العالي والتصميم الأنيق. مثالي للأعمال والدراسة."
+    },
+    {
+      id: 3,
+      name: "شاشة Lenovo 24",
+      price: 4200,
+      rating: 4.0,
+      images: [
+        "img/LG/Lenovo1.jfif",
+        "img/LG/Lenovo2.jfif"
+      ],
+      category: "شاشة",
+      brand: "Lenovo",
+      specs: {
+        "الحجم": "24 إنش",
+        "الدقة": "1920x1080",
+        "الاستجابة": "5ms"
+      },
+      description: "شاشة عالية الوضوح بحجم 24 بوصة."
+    },
+    {
+      id: 4,
+      name: "هاتف iPhone 13",
+      price: 40000,
+      rating: 4.8,
+      images: [
+        "img/phon/phone1.jfif",
+        "img/phon/phone21.jfif"
+      ],
+      category: "هواتف",
+      brand: "Apple",
+      specs: {
+        "الشاشة": "6.1 إنش OLED",
+        "الكاميرا": "12MP",
+        "البطارية": "3227mAh",
+        "المعالج": "A15 Bionic"
+      },
+      description: "هاتف آيفون 13 مع معالج قوي وكاميرا متطورة."
+    },
+    {
+      id: 5,
+      name: "لابتوب Lenovo IdeaPad",
+      price: 17000,
+      rating: 4.3,
+      images: [
+        "img/laptop/Lenovo IdeaPad1.jfif",
+        "img/laptop/Lenovo IdeaPad2.jfif"
+      ],
+      category: "كمبيوتر",
+      brand: "Lenovo",
+      specs: {
+        "المعالج": "Intel Core i5",
+        "الرام": "32GB",
+        "التخزين": "256GB SSD",
+        "الشاشة": "14\" FHD"
+      },
+      description: "لابتوب مميز للأعمال اليومية والاستخدامات المتعددة."
+    },
+    {
+      id: 6,
+      name: "شاشة Samsung Curved",
+      price: 7500,
+      rating: 4.5,
+      images: [
+        "img/LG/Samsung Curved1.jfif",
+        "img/LG/Samsung Curved2.jfif"
+      ],
+      category: "شاشة",
+      brand: "Samsung",
+      specs: {
+        "الحجم": "27 إنش",
+        "الدقة": "2560x1440",
+        "الاستجابة": "4ms"
+      },
+      description: "شاشة احترافية بدقة عالية وحجم كبير."
+    },
+    {
+      id: 7,
+      name: "هاتف Xiaomi Redmi Note 12",
+      price: 7500,
+      rating: 4.1,
+      images: [
+        "img/phon/Xiaom1.jfif",
+        "img/phon/Xiaom2.jfif"
+      ],
+      category: "هواتف",
+      brand: "Xiaomi",
+      specs: {
+        "الشاشة": "6.67 إنش AMOLED",
+        "الكاميرا": "108MP + 8MP + 2MP",
+        "البطارية": "5000mAh",
+        "المعالج": "Snapdragon 685"
+      },
+      description: "هاتف ذكي مزود بكاميرا ثلاثية وبطارية تدوم طويلاً."
+    },
+    {
+      id: 8,
+      name: "لابتوب Dell Inspiron",
+      price: 13000,
+      rating: 4.6,
+      images: [
+        "img/laptop/Dell Inspiron1.jfif",
+        "img/laptop/Dell Inspiron2.jfif"
+      ],
+      category: "كمبيوتر",
+      brand: "Asus",
+      specs: {
+        "المعالج": "Intel Core i5",
+        "الرام": "16GB",
+        "التخزين": "512GB SSD",
+        "الشاشة": "15.6\" FHD"
+      },
+      description: "لابتوب أنيق وخفيف الوزن مع أداء قوي."
+    },
+    {
+      id: 9,
+      name: "شاشة LG UltraWide",
+      price: 9000,
+      rating: 4.7,
+      images: [
+        "img/LG/LG UltraWide1.jfif",
+        "img/LG/LG UltraWide2.jfif"
+      ],
+      category: "شاشة",
+      brand: "LG",
+      specs: {
+        "الحجم": "42 إنش",
+        "الدقة": "2560x1440",
+        "الاستجابة": "1ms"
+      },
+      description: "شاشة منحنية توفر تجربة مشاهدة غامرة."
+    },
+    {
+      id: 10,
+      name: "هاتف OnePlus Nord 2",
+      price: 12000,
+      rating: 4.4,
+      images: [
+        "img/phon/OnePlusNord.jfif",
+        "img/phon/OnePlusNord3.jfif"
+      ],
+      category: "هواتف",
+      brand: "OnePlus",
+      specs: {
+        "الشاشة": "6.43 إنش AMOLED",
+        "الكاميرا": "50MP + 8MP + 2MP",
+        "البطارية": "4500mAh",
+        "المعالج": "MediaTek Dimensity 1200"
+      },
+      description: "هاتف ذكي يقدم أداءً ممتازًا بسعر معقول."
+    },
+    {
+      id: 11,
+      name: "لابتوب Asus ZenBook",
+      price: 16000,
+      rating: 4.2,
+      images: [
+        "img/laptop/Asus ZenBook1.jfif",
+        "img/laptop/Asus ZenBook2.jfif"
+      ],
+      category: "كمبيوتر",
+      brand: "Acer",
+      specs: {
+        "المعالج": "Intel Core i5",
+        "الرام": "16GB",
+        "التخزين": "256GB SSD",
+        "الشاشة": "15.6\" FHD"
+      },
+      description: "لابتوب موثوق للأعمال والدراسة."
+    },
+    {
+      id: 12,
+      name: "شاشة Acer Predator",
+      price: 12000,
+      rating: 4.3,
+      images: [
+        "img/LG/Acer Predator1.jfif",
+        "img/LG/Acer Predator2.jfif"
+      ],
+      category: "شاشة",
+      brand: "Acer",
+      specs: {
+        "الحجم": "75 إنش",
+        "الدقة": "2560x1080",
+        "الاستجابة": "3ms"
+      },
+      description: "شاشة عريضة توفر مساحة عمل أكبر."
+    },
+    {
+      id: 13,
+      name: "هاتف Oppo Reno 8",
+      price: 8500,
+      rating: 4.5,
+      images: [
+        "img/phon/OppoReno6.jfif",
+        "img/phon/OppoReno62.jfif"
+      ],
+      category: "هواتف",
+      brand: "Oppo",
+      specs: {
+        "الشاشة": "6.43 إنش AMOLED",
+        "الكاميرا": "64MP + 8MP + 2MP",
+        "البطارية": "4500mAh",
+        "المعالج": "MediaTek Dimensity 1300"
+      },
+      description: "هاتف ذكي مزود بكاميرا قوية وأداء ممتاز."
+    },
+    {
+      id: 14,
+      name: "لابتوب Microsoft Surface",
+      price: 20000,
+      rating: 4.1,
+      images: [
+        "img/laptop/Microsoft Surface1.jfif",
+        "img/laptop/Microsoft Surface2.jfif"
+      ],
+      category: "كمبيوتر",
+      brand: "Dell",
+      specs: {
+        "المعالج": "Intel Core i7",
+        "الرام": "16GB",
+        "التخزين": "512GB SSD",
+        "الشاشة": "15.6\" FHD"
+      },
+      description: "لابتوب قوي للأعمال والمهام المتعددة."
+    },
+    {
+      id: 15,
+      name: "شاشة Philips Smart TV",
+      price: 15000,
+      rating: 4.0,
+      images: [
+        "img/LG/Philips Smart TV1.jfif",
+        "img/LG/Philips Smart TV2.jfif"
+      ],
+      category: "شاشة",
+      brand: "Philips",
+      specs: {
+        "الحجم": "65 إنش",
+        "الدقة": "1920x1080",
+        "الاستجابة": "2ms"
+      },
+      description: "شاشة عالية الجودة بحجم 65 بوصة."
+    },
+    {
+      id: 16,
+      name: "هاتف Vivo V21",
+      price: 8000,
+      rating: 4.6,
+      images: [
+        "img/phon/HuaweiP40.jfif",
+        "img/phon/HuaweiP402.jfif"
+      ],
+      category: "هواتف",
+      brand: "Vivo",
+      specs: {
+        "الشاشة": "6.44 إنش AMOLED",
+        "الكاميرا": "64MP + 8MP + 2MP",
+        "البطارية": "4000mAh",
+        "المعالج": "MediaTek Dimensity 800U"
+      },
+      description: "هاتف ذكي مزود بكاميرا سيلفي ممتازة وأداء قوي."
+    },
+    {
+      id: 17,
+      name: "لابتوب Acer Aspire",
+      price: 9000,
+      rating: 4.4,
+      images: [
+        "img/laptop/Acer Aspire1.jfif",
+        "img/laptop/Acer Aspire2.jfif"
+      ],
+      category: "كمبيوتر",
+      brand: "MSI",
+      specs: {
+        "المعالج": "Intel Core i5",
+        "الرام": "8GB",
+        "التخزين": "512GB SSD",
+        "الشاشة": "15.6\" FHD"
+      },
+      description: "لابتوب مخصص للألعاب مع أداء قوي وتصميم جذاب."
+    },
+    {
+      id: 18,
+      name: "شاشة BenQ Gaming",
+      price: 11000,
+      rating: 4.3,
+      images: [
+        "img/LG/BenQ Gaming1.jfif",
+        "img/LG/BenQ Gaming2.jfif"
+      ],
+      category: "شاشة",
+      brand: "BenQ",
+      specs: {
+        "الحجم": "42 إنش",
+        "الدقة": "2560x1440",
+        "الاستجابة": "4ms"
+      },
+      description: "شاشة كبيرة بدقة عالية توفر تجربة مشاهدة رائعة."
+    },
+    {
+      id: 19,
+      name: "هاتف Vivo V25",
+      price: 9000,
+      rating: 4.5,
+      images: [
+        "img/phon/VivoV211.jfif",
+        "img/phon/VivoV22.jfif"
+      ],
+      category: "هواتف",
+      brand: "Vivo V21",
+      specs: {
+        "الشاشة": "6.43 إنش AMOLED",
+        "الكاميرا": "64MP + 8MP + 2MP",
+        "البطارية": "4300mAh",
+        "المعالج": "Snapdragon 778G"
+      },
+      description: "هاتف ذكي بتصميم مميز وأداء قوي."
+    },
+    {
+      id: 20,
+      name: "لابتوب Toshiba Satellite",
+      price: 8000,
+      rating: 4.8,
+      images: [
+        "img/laptop/Toshiba Satellite1.jfif",
+        "img/laptop/Toshiba Satellite2.jfif"
+      ],
+      category: "كمبيوتر",
+      brand: "HP",
+      specs: {
+        "المعالج": "AMD Ryzen 5",
+        "الرام": "8GB",
+        "التخزين": "512GB SSD",
+        "الشاشة": "13.3\" FHD"
+      },
+      description: "لابتوب هجين مع تصميم أنيق وأداء ممتاز."
+    },
+    {
+      id: 21,
+      name: "شاشة ViewSonic 4K",
+      price: 13000,
+      rating: 4.7,
+      images: [
+        "img/LG/ViewSonic 4K1.jfif",
+        "img/LG/ViewSonic 4K1.jfif"
+      ],
+      category: "شاشة",
+      brand: "ViewSonic",
+      specs: {
+        "الحجم": "42 إنش",
+        "الدقة": "2560x1440",
+        "الاستجابة": "1ms"
+      },
+      description: "شاشة مخصصة للألعاب مع معدل تحديث عالي."
+    },
+    {
+      id: 22,
+      name: "هاتف Motorola Edge 20",
+      price: 9500,
+      rating: 4.2,
+      images: [
+        "img/phon/MotorolaMotoGPower.jfif",
+        "img/phon/MotorolaMotoGPower2.jfif"
+      ],
+      category: "هواتف",
+      brand: "Motorola",
+      specs: {
+        "الشاشة": "6.7 إنش OLED",
+        "الكاميرا": "108MP + 16MP + 8MP",
+        "البطارية": "4500mAh",
+        "المعالج": "Snapdragon 778G"
+      },
+      description: "هاتف ذكي مزود بكاميرا ثلاثية وبطارية تدوم طويلاً."
+    },
+    {
+      id: 23,
+      name: "لابتوب Razer Blade 15",
+      price: 30000,
+      rating: 4.9,
+      images: [
+        "img/laptop/Razer Blade1.jfif",
+        "img/laptop/Razer Blade2.jfif",
+        "img/laptop/Razer Blade3.jfif"
+      ],
+      category: "كمبيوتر",
+      brand: "Razer",
+      specs: {
+        "المعالج": "Intel Core i7",
+        "الرام": "32GB",
+        "التخزين": "1TB SSD",
+        "الشاشة": "15.6\" FHD"
+      },
+      description: "لابتوب مخصص للألعاب مع تصميم أنيق وأداء قوي."
+    },
+    {
+      id: 24,
+      name: "شاشة MSI Optix",
+      price: 14000,
+      rating: 4.4,
+      images: [
+        "img/LG/MSI Optix1.jfif",
+        "img/LG/MSI Optix2.jfif"
+      ],
+      category: "شاشة",
+      brand: "MSI",
+      specs: {
+        "الحجم": "47 إنش",
+        "الدقة": "2560x1440",
+        "الاستجابة": "1ms"
+      },
+      description: "شاشة مخصصة للألعاب مع معدل تحديث عالي."
+    },
+    {
+      id: 25,
+      name: "هاتف Realme 8 Pro",
+      price: 20000,
+      rating: 4.6,
+      images: [
+        "img/phon/Realme8Pro.jfif",
+        "img/phon/Realme8Pro2.jfif"
+      ],
+      category: "هواتف",
+      brand: "Realme",
+      specs: {
+        "الشاشة": "6.1 إنش OLED",
+        "الكاميرا": "12MP + 12MP + 12MP",
+        "البطارية": "4500mAh",
+        "المعالج": "Snapdragon 888"
+      },
+      description: "هاتف ذكي مزود بكاميرا ثلاثية وأداء ممتاز."
+    },
+    {
+      id: 26,
+      name: "لابتوب HP Envy",
+      price: 16000,
+      rating: 4.8,
+      images: [
+        "img/laptop/HP Envy1.jfif",
+        "img/laptop/HP Envy2.jfif"
+      ],
+      category: "كمبيوتر",
+      brand: "HP",
+      specs: {
+        "المعالج": "Intel Core i5",
+        "الرام": "16GB",
+        "التخزين": "256GB SSD",
+        "الشاشة": "15.3\" Retina"
+      },
+      description: "لابتوب خفيف الوزن مع أداء قوي وعمر بطارية طويل."
+    },
+    {
+      id: 27,
+      name: "شاشة Dell UltraSharp",
+      price: 16000,
+      rating: 4.9,
+      images: [
+        "img/LG/Dell UltraSharp1.jfif",
+        "img/LG/Dell UltraSharp2.jfif"
+      ],
+      category: "شاشة",
+      brand: "Dell",
+      specs: {
+        "الحجم": "67 إنش",
+        "الدقة": "3840x2160",
+        "الاستجابة": "1ms"
+      },
+      description: "شاشة مخصصة للألعاب بدقة 4K ومعدل تحديث عالي."
+    },
+    {
+      id: 28,
+      name: "Headphone LG",
+      price: 1200,
+      rating: 4.9,
+      images: [
+        "img/head/headphones1.jfif",
+        "img/head/headphones1.jfif"
+      ],
+      category: "سماعات",
+      brand: "LG",
+      specs: {
+        "الحجم": "Over-ear",
+        "الدقة": "High-Resolution Audio",
+        "الاستجابة": "20Hz - 20kHz"
+      },
+      description: "سماعات عالية الجودة مع تجربة صوت غامرة."
+    },
+    {
+      id: 29,
+      name: "ساعات K ALOSTE",
+      price: 1000,
+      rating: 4.9,
+      images: [
+        "img/watch/watch1.jfif",
+        "img/watch/watch1.jfif"
+      ],
+      category: "ساعات",
+      brand: "K ALOSTE",
+      specs: {
+        "الحجم": "  40mm",
+        "الدقة": "  320x320",
+        "الاستجابة": "  1-100Hz"
+      },
+      description: "ساعات ذكية مزودة بميزات متقدمة وتصميم أنيق."
+    },
+    {
+      id: 30,
+      name: "SSD hard disk",
+      price: 900,
+      rating: 4.9,
+      images: [
+        "img/SSD hard disk/SSD hard disk1.jfif",
+        "img/SSD hard disk/SSD hard disk1.jfif"
+      ],
+      category: "منوعات الكترونية",
+      brand: "LG",
+      specs: {
+        "الحجم": "  500GB",
+        "الدقة": "  SATA III",
+        "الاستجابة": "  500MB/s"
+      },
+      description: "قرص صلب SSD عالي السرعة بسعة كبيرة."
+    },
+    {
+      id: 31,
+      name: "Digital camera NIKON D3500",
+      price: 11000,
+      rating: 4.9,
+      images: [
+        "img/Digital camera/Digital camera1.jfif",
+        "img/Digital camera/Digital camera1.jfif"
+      ],
+      category: "كاميرات",
+      brand: "NIKON",
+      specs: {
+        "الحجم": "  4/3",
+        "الدقة": "  24MP",
+        "الاستجابة": "  100-32000"
+      },
+      description: "كاميرا رقمية متطورة بدقة عالية."
+    }
+  ];
+
+  // دالة لاستخلاص قيمة query param من الرابط
+  function getQueryParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+  }
+
+  // عرض تفاصيل المنتج المحدد
+  function displayProduct(product) {
+    if (!product) {
+      alert("المنتج غير موجود!");
+      window.location.href = "shop.html";
+      return;
+    }
+    document.getElementById("mainImage").src = product.images[0];
+    const thumbsContainer = document.getElementById("thumbsContainer");
+    thumbsContainer.innerHTML = "";
+    product.images.forEach(src => {
+      const img = document.createElement("img");
+      img.src = src.replace(/600\/400/, "100");
+      img.alt = product.name;
+      img.onclick = () => document.getElementById("mainImage").src = src;
+      thumbsContainer.appendChild(img);
+    });
+
+    document.getElementById("productName").textContent = product.name;
+    document.getElementById("productPrice").textContent = product.price.toLocaleString() + " جنيه";
+
+    // النجوم مع رقم التقييم
+    const ratingStars = "★".repeat(Math.floor(product.rating)) +
+      "☆".repeat(5 - Math.floor(product.rating));
+    document.getElementById("productRating").textContent = `${ratingStars} (${product.rating.toFixed(1)})`;
+
+    // المواصفات
+    const specsUl = document.getElementById("productSpecs");
+    specsUl.innerHTML = "";
+    for (const [key, value] of Object.entries(product.specs)) {
+      const li = document.createElement("li");
+      li.textContent = `${key}: ${value}`;
+      specsUl.appendChild(li);
+    }
+
+    document.getElementById("productDescription").textContent = product.description;
+  }
+
+  // إضافة المنتج إلى السلة
+  function addToCart() {
+    const qtyInput = document.getElementById("qty");
+    const qty = parseInt(qtyInput.value) || 1;
+
+    const productId = parseInt(getQueryParam("id"));
+    const product = products.find(p => p.id === productId);
+    if (!product) {
+      alert("المنتج غير موجود");
+      return;
+    }
+
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const existingItem = cart.find(item => item.id === product.id);
+    if (existingItem) {
+      existingItem.quantity += qty;
+    } else {
+      cart.push({
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        image: product.images[0].replace(/600\/400/, "100"),
+        quantity: qty
+      });
+    }
+    localStorage.setItem("cart", JSON.stringify(cart));
+    alert("✅ تم إضافة المنتج إلى السلة!");
+  }
+
+  // عرض منتجات مشابهة (منتجات من نفس الفئة، باستثناء المنتج الحالي)
+  function displaySuggested(currentProduct) {
+    const suggestedContainer = document.getElementById("suggestedContainer");
+    suggestedContainer.innerHTML = "";
+    const suggested = products.filter(p => 
+      p.category === currentProduct.category && p.id !== currentProduct.id
+    ).slice(0, 4);
+
+    suggested.forEach(p => {
+      const card = document.createElement("div");
+      card.className = "product-card";
+      card.innerHTML = `
+        <img src="${p.images[0].replace(/600\/400/, "200")}" alt="${p.name}" />
+        <h4>${p.name}</h4>
+        <div class="price">${p.price.toLocaleString()} جنيه</div>
+        <button onclick="goToProduct(${p.id})" style="margin-top:10px; background:#007acc; color:#fff; border:none; padding:6px 10px; border-radius:6px; cursor:pointer;">التفاصيل</button>
+      `;
+      suggestedContainer.appendChild(card);
+    });
+  }
+
+  function goToProduct(id) {
+    window.location.href = `product.html?id=${id}`;
+  }
+
+  // التنفيذ عند تحميل الصفحة
+  window.onload = () => {
+    const productId = parseInt(getQueryParam("id"));
+    const product = products.find(p => p.id === productId);
+    displayProduct(product);
+    if (product) displaySuggested(product);
+  };
+</script>
+
+</body>
+</html>

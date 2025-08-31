@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>نتائج البحث | TechZone</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: 'Cairo', sans-serif; margin: 0; background: #f7f9fb; color: #333; }
+    header { background: #0d1b2a; color: white; padding: 20px; text-align: center; }
+
+    .container {
+      max-width: 1000px; margin: 30px auto; padding: 20px;
+      background: white; border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+
+    .search-bar {
+      margin-bottom: 20px; display: flex; gap: 10px;
+    }
+
+    .search-bar input {
+      flex: 1; padding: 12px; font-size: 16px;
+      border: 1px solid #ccc; border-radius: 8px;
+    }
+
+    .search-bar button {
+      padding: 12px 20px; background: #00aaff;
+      color: white; border: none; border-radius: 8px;
+      font-size: 16px; cursor: pointer;
+    }
+
+    .results h3 {
+      margin-top: 30px; border-bottom: 1px solid #ddd;
+      padding-bottom: 5px;
+    }
+
+    .product {
+      padding: 10px; border: 1px solid #eee;
+      border-radius: 8px; margin: 10px 0;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+
+    .product-info {
+      display: flex; align-items: center; gap: 15px;
+    }
+
+    .product img {
+      width: 80px; height: 80px;
+      object-fit: cover; border-radius: 6px;
+    }
+
+    .product-name {
+      font-size: 16px; font-weight: bold;
+    }
+
+    .product-price {
+      color: #00aaff;
+    }
+
+    .add-btn {
+      padding: 8px 14px;
+      background: #0d1b2a; color: white;
+      border: none; border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .no-results {
+      text-align: center; padding: 20px; color: #888;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      padding: 0;
+      margin: 10px 0 0;
+    }
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+    }
+    /* 1. ظهور ناعم متدرج مع تحريك خفيف للأجزاء */
+@keyframes fadeSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 2. الحاوية الرئيسية */
+.container {
+  animation: fadeSlideUp 0.8s ease forwards;
+  opacity: 0;
+  animation-delay: 0.2s;
+}
+
+/* 3. شريط البحث */
+.search-bar {
+  animation: fadeSlideUp 0.8s ease forwards;
+  animation-delay: 0.4s;
+  opacity: 0;
+  transition: box-shadow 0.4s ease;
+}
+
+.search-bar input {
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+  box-shadow: inset 0 1px 6px rgba(0, 0, 0, 0.1);
+}
+
+.search-bar input:focus {
+  border-color: #00aaff;
+  box-shadow: 0 0 15px rgba(0, 170, 255, 0.7);
+  outline: none;
+  transform: scale(1.03);
+  transition: transform 0.3s ease, box-shadow 0.4s ease;
+}
+
+.search-bar button {
+  background: linear-gradient(135deg, #007acc, #00c6ff);
+  box-shadow: 0 0 10px rgba(0, 198, 255, 0.6);
+  font-weight: 700;
+  transition: background 0.4s ease, box-shadow 0.4s ease, transform 0.3s ease;
+}
+
+.search-bar button:hover {
+  background: linear-gradient(135deg, #00c6ff, #007acc);
+  box-shadow: 0 0 25px rgba(0, 198, 255, 1);
+  transform: scale(1.1) translateZ(10px);
+  cursor: pointer;
+}
+
+/* 4. عناوين النتائج */
+.results h3 {
+  animation: fadeSlideUp 0.8s ease forwards;
+  animation-delay: 0.6s;
+  opacity: 0;
+  border-bottom: 2px solid #00aaff;
+  padding-bottom: 8px;
+  color: #0077cc;
+}
+
+/* 5. بطاقات المنتجات بتأثير هولوجرافي وانعكاس لامع */
+.product {
+  animation: fadeSlideUp 0.9s ease forwards;
+  animation-delay: 0.7s;
+  opacity: 0;
+  background: linear-gradient(145deg, #ffffff, #e1f0ff);
+  box-shadow:
+    0 8px 20px rgba(0, 170, 255, 0.15),
+    inset 0 0 12px rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  transition:
+    box-shadow 0.5s ease,
+    transform 0.4s ease;
+  cursor: pointer;
+  will-change: transform, box-shadow;
+}
+
+.product:hover {
+  box-shadow:
+    0 15px 40px rgba(0, 170, 255, 0.35),
+    inset 0 0 25px rgba(255, 255, 255, 0.95);
+  transform: scale(1.05) translateZ(15px);
+}
+
+/* 6. معلومات المنتج */
+.product-info {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.product img {
+  border-radius: 12px;
+  transition: transform 0.5s ease;
+  will-change: transform;
+}
+
+.product:hover img {
+  transform: scale(1.12) rotate(3deg);
+}
+
+/* اسم المنتج */
+.product-name {
+  font-weight: 700;
+  color: #004a7c;
+  transition: color 0.4s ease;
+}
+
+.product:hover .product-name {
+  color: #00aaff;
+  text-shadow: 0 0 8px rgba(0, 170, 255, 0.9);
+}
+
+/* السعر */
+.product-price {
+  color: #0077cc;
+  font-weight: 700;
+  transition: color 0.4s ease, text-shadow 0.4s ease;
+}
+
+.product:hover .product-price {
+  color: #00ccff;
+  text-shadow: 0 0 10px rgba(0, 204, 255, 1);
+}
+
+/* 7. زر الإضافة بتوهج جذاب */
+.add-btn {
+  background: linear-gradient(135deg, #0d1b2a, #004a7c);
+  box-shadow: 0 0 12px rgba(0, 75, 140, 0.7);
+  transition:
+    box-shadow 0.4s ease,
+    background 0.4s ease,
+    transform 0.3s ease;
+  font-weight: 700;
+  user-select: none;
+}
+
+.add-btn:hover {
+  background: linear-gradient(135deg, #007acc, #00aaff);
+  box-shadow:
+    0 0 25px rgba(0, 170, 255, 1),
+    0 0 40px rgba(0, 170, 255, 0.8);
+  transform: scale(1.12) translateZ(10px);
+  cursor: pointer;
+}
+
+/* 8. رسالة لا توجد نتائج */
+.no-results {
+  animation: fadeSlideUp 0.9s ease forwards;
+  opacity: 0;
+  animation-delay: 0.5s;
+  color: #999;
+  font-style: italic;
+}
+
+/* تجاوب أفضل */
+@media (max-width: 600px) {
+  nav ul {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .search-bar {
+    flex-direction: column;
+  }
+
+  .search-bar input,
+  .search-bar button {
+    width: 100%;
+  }
+
+  .product {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .product-price {
+    margin-top: 8px;
+  }
+}
+
+  </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+<body>
+
+<header>
+  <h1>🔎 نتائج البحث</h1>
+  <nav>
+    <ul>
+       <ul>
+  <li><a href="index.html" class="active"><i class="fas fa-home"></i> الرئيسية</a></li>
+  <li><a href="shop.html"><i class="fas fa-store"></i> المنتجات</a></li>
+  <li><a href="product.html"><i class="fas fa-box-open"></i> تفاصيل المنتجات</a></li>
+  <li><a href="cart.html"><i class="fas fa-shopping-cart"></i> السلة</a></li>
+  <li><a href="support.html"><i class="fas fa-headset"></i> الدعم</a></li>
+  <li><a href="search.html"><i class="fas fa-search"></i> البحث</a></li>
+  <li><a href="account.html"><i class="fas fa-user"></i> حسابي</a></li>
+  <li><a href="about.html"><i class="fas fa-info-circle"></i> من نحن</a></li>
+</ul>
+  </nav>
+</header>
+
+<div class="container">
+  <div class="search-bar">
+    <input type="text" id="searchInput" placeholder="ابحث عن منتج...">
+    <button onclick="performSearch()">بحث</button>
+  </div>
+
+  <div class="results" id="resultsContainer">
+    <!-- نتائج البحث هنا -->
+  </div>
+</div>
+<footer>
+  <div class="footer-container">
+    <div class="footer-section about">
+      <h3>عن الشركة</h3>
+<p>
+  ⚡ TechZone هي شركة رائدة في توزيع وبيع الأجهزة الإلكترونية المتنوعة، نتمتع بخبرة واسعة تمتد لسنوات عديدة في السوق المصري والعالمي. نحن ملتزمون بتقديم أحدث وأفضل المنتجات التي تلبي احتياجات عملائنا بجودة لا مثيل لها وخدمة عملاء متميزة. رؤيتنا هي تسهيل حياة الناس من خلال توفير حلول تكنولوجية مبتكرة، مع ضمان تجربة شراء سلسة وآمنة. في TechZone، نؤمن بأن التكنولوجيا هي مستقبل الحياة، ونحن هنا لنكون شركاؤكم في هذا المستقبل.
+</p>
+    </div>
+    <div class="footer-section links">
+      <h3>روابط مهمة</h3>
+      <ul>
+        <li><a href="#">الرئيسية</a></li>
+        <li><a href="#">المنتجات</a></li>
+        <li><a href="#">عنا</a></li>
+        <li><a href="#">اتصل بنا</a></li>
+        <li><a href="#">سياسة الخصوصية</a></li>
+      </ul>
+    </div>
+    <div class="footer-section contact">
+      <h3>تواصل معنا</h3>
+      <p>📍 العاشر من رمضان - المجاورة 7</p>
+      <p>📞 الهاتف: 0123456789</p>
+      <p>✉ البريد الإلكتروني: TechZone121@gmail.com</p>
+      <div class="social-icons">
+        <a href="#" aria-label="فيسبوك" target="_blank" rel="noopener noreferrer">
+          <svg width="24" height="24" fill="#55acee" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M22 12c0-5.522-4.477-10-10-10S2 6.478 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54v-2.89h2.54v-2.204c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.462h-1.26c-1.243 0-1.63.772-1.63 1.562v1.876h2.773l-.443 2.89h-2.33v6.987C18.343 21.128 22 16.991 22 12z"/>
+          </svg>
+        </a>
+        <a href="#" aria-label="تويتر" target="_blank" rel="noopener noreferrer">
+          <svg width="24" height="24" fill="#1da1f2" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M23 3a10.9 10.9 0 01-3.14.86 4.48 4.48 0 001.98-2.48 9.14 9.14 0 01-2.9 1.1 4.52 4.52 0 00-7.7 4.13A12.86 12.86 0 013 4.78a4.52 4.52 0 001.4 6.04 4.42 4.42 0 01-2.05-.56v.06a4.52 4.52 0 003.63 4.43 4.52 4.52 0 01-2.04.08 4.52 4.52 0 004.21 3.14A9.06 9.06 0 013 19.54a12.84 12.84 0 006.92 2.03c8.3 0 12.85-6.9 12.85-12.85 0-.2 0-.39-.01-.58A9.2 9.2 0 0023 3z"/>
+          </svg>
+        </a>
+        <a href="#" aria-label="إنستغرام" target="_blank" rel="noopener noreferrer">
+          <svg width="24" height="24" fill="#e1306c" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M7 2C4.243 2 2 4.243 2 7v10c0 2.757 2.243 5 5 5h10c2.757 0 5-2.243 5-5V7c0-2.757-2.243-5-5-5H7zm10 3a1 1 0 110 2 1 1 0 010-2zm-5 2.5a4.5 4.5 0 110 9 4.5 4.5 0 010-9zm0 2a2.5 2.5 0 100 5 2.5 2.5 0 000-5z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 جميع الحقوق محفوظة ⚡ TechZone  </p>
+  </div>
+</footer>
+
+<style>
+  footer {
+    background: #001f3f; /* أزرق داكن جداً */
+    color: #eee; /* نص فاتح */
+    font-family: 'Cairo', sans-serif;
+    user-select: none;
+  }
+  .footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1100px;
+    margin: auto;
+    padding: 40px 20px 25px;
+  }
+  .footer-section {
+    flex: 1 1 280px;
+    margin: 10px 20px;
+  }
+  .footer-section h3 {
+    font-size: 22px;
+    margin-bottom: 20px;
+    letter-spacing: 0.04em;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    color: #fff;
+  }
+  .footer-section p, 
+  .footer-section ul {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #ddd;
+  }
+  .footer-section ul {
+    list-style: none;
+    padding: 0;
+  }
+  .footer-section ul li {
+    margin-bottom: 12px;
+  }
+  .footer-section ul li a {
+    color: #a0cfff; /* أزرق فاتح */
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  .footer-section ul li a:hover {
+    color: #00aaff;
+    text-decoration: underline;
+  }
+
+  /* أيقونات التواصل */
+  .social-icons {
+    margin-top: 15px;
+    display: flex;
+    gap: 18px;
+  }
+  .social-icons a {
+    display: inline-block;
+    transition: transform 0.3s ease, filter 0.3s ease;
+    filter: drop-shadow(0 0 2px rgba(0,0,0,0.4));
+  }
+  .social-icons a:hover {
+    transform: scale(1.2);
+    filter: drop-shadow(0 0 6px #00aaff);
+  }
+
+  /* القسم الأسفل */
+  .footer-bottom {
+    background: #000c19; /* أزرق غامق جداً */
+    text-align: center;
+    padding: 18px 10px;
+    font-size: 14px;
+    letter-spacing: 0.02em;
+    color: #bbb;
+    user-select: none;
+  }
+
+  /* استجابة */
+  @media (max-width: 768px) {
+    .footer-container {
+      flex-direction: column;
+      padding: 30px 20px 20px;
+    }
+    .footer-section {
+      margin: 20px 0;
+    }
+  }
+</style>
+<script>
+  const products = [
+  {
+    id: 101,
+    name: 'هاتف Samsung A54',
+    category: 'هواتف',
+    price: 20000,
+    image: 'img/phon/samsung_a54.jfif',
+    stars: 4.7
+  },
+  {
+    id: 102,
+    name: 'لابتوب  HP Pavilion' ,
+    category: 'كمبيوترات',
+    price: 15000,
+    image: 'img/laptop/laptop1.jfif',
+    stars: 4.9
+  },
+  {
+    id: 103,
+    name: 'سماعات',
+    category: 'إكسسوارات',
+    price: 1200,
+    image: 'img/head/headphones1.jfif',
+    stars: 4.6
+  },
+  {
+    id: 104,
+    name: 'ساعة ذكية',
+    category: 'إكسسوارات',
+    price: 3500,
+    image: 'img/watch/watch1.jfif',
+    stars: 4.5
+  },
+  {
+    id: 105,
+    name: 'تابلت',
+    category: 'أجهزة لوحية',
+    price: 5000,
+    image: 'img/Tablet/Tablet1.jfif',
+    stars: 4.8
+  },
+  {
+    id: 106,
+    name: 'كاميرا رقمية',
+    category: 'كاميرات',
+    price: 11000,
+    image: 'img/Digital camera/Digital camera1.jfif',
+    stars: 4.9
+  },
+  {
+    id: 107,
+    name: 'مايكروفون احترافي',
+    category: 'إكسسوارات',
+    price: 1800,
+    image: 'img/Professional microphone/Professional microphone1.jfif',
+    stars: 4.6
+  },
+  {
+    id: 108,
+    name: 'قرص صلب SSD',
+    category: 'قطع غيار',
+    price: 900,
+    image: 'img/SSD hard disk/SSD hard disk1.jfif',
+    stars: 4.4
+  },
+  {
+    id: 109,
+    name: 'لوحة مفاتيح ميكانيكية',
+    category: 'إكسسوارات',
+    price: 1100,
+    image: 'img/mechanical keyboard/mechanical keyboard1.jfif',
+    stars: 4.7
+  },
+  {
+    id: 110,
+    name: 'شاحن لاسلكي',
+    category: 'إكسسوارات',
+    price: 450,
+    image: 'img/Wireless charger/Wireless charger1.jfif',
+    stars: 4.3
+  },
+  {
+    id: 111,
+    name: 'سماعة رأس ألعاب',
+    category: 'إكسسوارات',
+    price: 2200,
+    image: 'img/Gaming headset/Gaming headset2.jfif',
+    stars: 4.8
+  },
+  {
+    id: 112,
+    name: 'جهاز تشغيل فيديو',
+    category: 'إلكترونيات',
+    price: 3000,
+    image: 'img/Video playback/Video playback1.jfif',
+    stars: 4.5
+  },
+  {
+    id: 113,
+    name: 'شاشة ألعاب 27 بوصة',
+    category: 'شاشات',
+    price: 13000,
+    image: 'img/gaming monitor/gaming monitor1.jfif',
+    stars: 4.9
+  },
+  {
+    id: 114,
+    name: 'ماوس لاسلكي',
+    category: 'إكسسوارات',
+    price: 700,
+    image: 'img/Wireless mouse/Wireless mouse1.jfif',
+    stars: 4.4
+  },
+  {
+    id: 115,
+    name: 'حافظة هاتف',
+    category: 'إكسسوارات',
+    price: 150,
+    image: 'img/Phone case/Phone case1.jfif',
+    stars: 4.1
+  }
+];
+
+  function performSearch() {
+    const keyword = document.getElementById("searchInput").value.trim().toLowerCase();
+    const resultsDiv = document.getElementById("resultsContainer");
+    resultsDiv.innerHTML = "";
+
+    if (!keyword) {
+      resultsDiv.innerHTML = "<div class='no-results'>❗ الرجاء إدخال كلمة للبحث.</div>";
+      return;
+    }
+
+    const matched = products.filter(p =>
+      p.name.toLowerCase().includes(keyword) ||
+      p.category.toLowerCase().includes(keyword)
+    );
+
+    if (matched.length === 0) {
+      resultsDiv.innerHTML = "<div class='no-results'>😢 لا توجد نتائج مطابقة.</div>";
+      return;
+    }
+
+    resultsDiv.innerHTML = "<h3>المنتجات المطابقة:</h3>";
+    matched.forEach(p => {
+      const div = document.createElement("div");
+      div.className = "product";
+      div.innerHTML = `
+        <div class="product-info">
+          <img src="${p.image}" alt="">
+          <div>
+            <div class="product-name">${p.name}</div>
+            <div class="product-price">${p.price} جنيه</div>
+          </div>
+        </div>
+        <button class="add-btn" onclick="addToCart(${p.id})">أضف إلى السلة</button>
+      `;
+      resultsDiv.appendChild(div);
+    });
+  }
+
+  function addToCart(id) {
+    const product = products.find(p => p.id === id);
+    if (!product) return;
+
+    let cart = JSON.parse(localStorage.getItem("cart") || "[]");
+    const existing = cart.find(item => item.id === product.id);
+
+    if (existing) {
+      existing.quantity += 1;
+    } else {
+      cart.push({ ...product, quantity: 1 });
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+    alert("✅ تم إضافة المنتج إلى السلة.");
+  }
+</script>
+
+</body>
+</html>

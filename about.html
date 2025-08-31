@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>من نحن | شركة توزيع وبيع أجهزة إلكترونية</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo&family=Open+Sans&display=swap" rel="stylesheet" />
+  <style>
+    /* أساسي */
+    body {
+      margin: 0;
+      font-family: 'Open Sans', sans-serif;
+      background: #fff;
+      color: #333;
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      line-height: 1.6;
+    }
+    header {
+      background: #0d1b2a;
+      color: white;
+      padding: 20px 10px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+    }
+    header h1 {
+      margin: 0;
+      font-family: 'Cairo', sans-serif;
+      font-weight: 700;
+      font-size: 28px;
+      letter-spacing: 2px;
+      text-align: center;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      padding: 10px 0 0;
+      margin: 0;
+      flex-wrap: wrap;
+    }
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      padding: 8px 12px;
+      border-radius: 6px;
+      transition: background-color 0.3s ease;
+    }
+    nav ul li a:hover,
+    nav ul li a.active {
+      background-color: #00aaff;
+    }
+    main {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 0 20px 60px;
+    }
+    h1, h2, h3 {
+      font-family: 'Cairo', sans-serif;
+      color: #004466;
+      margin-bottom: 18px;
+    }
+    h1 {
+      font-size: 36px;
+      text-align: center;
+      margin-bottom: 40px;
+      color: #003366;
+      text-shadow: 1px 1px 6px rgba(0, 102, 153, 0.5);
+    }
+    p {
+      font-size: 19px;
+      color: #004466;
+      max-width: 900px;
+      margin: 0 auto 25px;
+      text-align: justify;
+      user-select: text;
+      letter-spacing: 0.02em;
+    }
+
+    /* نص ترحيبي متحرك (typing) */
+    .typing {
+      font-size: 24px;
+      text-align: center;
+      margin-bottom: 50px;
+      color: #007acc;
+      font-weight: 700;
+      font-family: 'Cairo', sans-serif;
+      border-right: 3px solid #007acc;
+      white-space: nowrap;
+      overflow: hidden;
+      width: 0;
+      animation: typingAnim 4s steps(40, end) forwards, blinkCaret 0.75s step-end infinite;
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 90%;
+    }
+    @keyframes typingAnim {
+      from { width: 0 }
+      to { width: 100% }
+    }
+    @keyframes blinkCaret {
+      50% { border-color: transparent }
+    }
+
+    /* بطاقات القيم */
+    .values {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      margin-bottom: 60px;
+    }
+    .value-card {
+      background: linear-gradient(145deg, #e0f7ff, #c0e8ff);
+      border-radius: 24px;
+      padding: 30px 35px;
+      width: 300px;
+      box-shadow: 0 12px 30px rgba(0, 170, 255, 0.25);
+      text-align: center;
+      cursor: default;
+      transition: transform 0.35s ease, box-shadow 0.35s ease, background 0.4s ease;
+      user-select: none;
+      opacity: 0;
+      transform: translateY(40px);
+      animation: fadeSlideUp 0.8s forwards;
+      animation-delay: var(--delay);
+    }
+    .value-card:hover {
+      transform: translateY(-15px) scale(1.07);
+      box-shadow: 0 22px 60px rgba(0, 170, 255, 0.5);
+      background: linear-gradient(145deg, #a0d8ff, #80c8ff);
+    }
+    .value-card svg {
+      width: 70px;
+      height: 70px;
+      fill: #007acc;
+      margin-bottom: 20px;
+      filter: drop-shadow(0 0 6px rgba(0, 122, 204, 0.8));
+      animation: pulseGlow 3s infinite ease-in-out;
+      transition: fill 0.3s ease;
+    }
+    .value-card:hover svg {
+      fill: #004a99;
+      filter: drop-shadow(0 0 12px rgba(0, 74, 153, 1));
+    }
+    .value-card h3 {
+      font-weight: 900;
+      font-size: 26px;
+      margin-bottom: 18px;
+      color: #003366;
+      text-shadow: 1px 1px 4px rgba(0, 102, 153, 0.4);
+      transition: color 0.4s ease, transform 0.3s ease;
+    }
+    .value-card:hover h3 {
+      color: #005bb5;
+      text-shadow: 1.5px 1.5px 6px rgba(0, 91, 181, 0.7);
+      transform: scale(1.05);
+    }
+    .value-card p {
+      font-size: 18px;
+      line-height: 1.6;
+      color: #004466;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-align: justify;
+      user-select: text;
+      transition: color 0.4s ease;
+    }
+    .value-card:hover p {
+      color: #0066cc;
+    }
+    @keyframes fadeSlideUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @keyframes pulseGlow {
+      0%, 100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 6px rgba(0, 122, 204, 0.8));
+      }
+      50% {
+        transform: scale(1.12);
+        filter: drop-shadow(0 0 14px rgba(0, 122, 204, 1));
+      }
+    }
+
+    /* إحصائيات */
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 50px;
+      margin-bottom: 60px;
+      flex-wrap: wrap;
+    }
+    .stat {
+      background: #00aaff;
+      color: white;
+      border-radius: 20px;
+      padding: 30px 40px;
+      box-shadow: 0 8px 25px rgba(0, 170, 255, 0.4);
+      text-align: center;
+      width: 160px;
+      user-select: none;
+      cursor: default;
+      transition: background-color 0.3s ease;
+    }
+    .stat:hover {
+      background-color: #0088cc;
+    }
+    .stat .number {
+      font-size: 40px;
+      font-weight: 900;
+      margin-bottom: 8px;
+      letter-spacing: 0.05em;
+      text-shadow: 1px 1px 5px rgba(0,0,0,0.3);
+    }
+    .stat .label {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    /* فريق العمل */
+    .team {
+      max-width: 900px;
+      margin: 0 auto 70px;
+      text-align: center;
+    }
+    .team h2 {
+      margin-bottom: 35px;
+    }
+    .team-cards {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+    .team-card {
+      background: #e8f4ff;
+      border-radius: 18px;
+      box-shadow: 0 12px 30px rgba(0, 170, 255, 0.25);
+      width: 260px;
+      padding: 25px 20px 35px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: default;
+      user-select: none;
+      text-align: center;
+    }
+    .team-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 25px 60px rgba(0, 170, 255, 0.5);
+    }
+    .team-card img {
+      border-radius: 50%;
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      margin-bottom: 18px;
+      box-shadow: 0 6px 15px rgba(0, 122, 204, 0.5);
+      transition: box-shadow 0.3s ease;
+    }
+    .team-card:hover img {
+      box-shadow: 0 8px 22px rgba(0, 91, 181, 0.9);
+    }
+    .team-card h3 {
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 6px;
+      color: #003366;
+    }
+    .team-card p {
+      font-size: 16px;
+      color: #005bb5;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      margin-bottom: 0;
+    }
+
+    /* شهادات العملاء */
+    .testimonials {
+      max-width: 700px;
+      margin: 0 auto 70px;
+      position: relative;
+      font-style: italic;
+      color: #444;
+      user-select: none;
+    }
+    .testimonial {
+      display: none;
+      padding: 30px 20px;
+      text-align: center;
+      line-height: 1.5;
+      font-size: 20px;
+      border-radius: 20px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+      background: #f9fbff;
+      transition: opacity 1s ease;
+    }
+    .testimonial.active {
+      display: block;
+      animation: fadeIn 1.3s ease forwards;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(10px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    /* الخريطة */
+    .map-container {
+      width: 100%;
+      max-width: 900px;
+      height: 400px;
+      margin: 0 auto 60px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 15px 40px rgba(0, 170, 255, 0.3);
+      transition: box-shadow 0.3s ease;
+    }
+    .map-container:hover {
+      box-shadow: 0 25px 70px rgba(0, 170, 255, 0.6);
+    }
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* تذييل بسيط */
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 14px;
+      color: #007acc;
+      font-family: 'Cairo', sans-serif;
+      user-select: none;
+    }
+
+    /* استجابة */
+    @media (max-width: 900px) {
+      .values {
+        justify-content: center;
+      }
+      .value-card {
+        width: 280px;
+      }
+      .team-cards {
+        flex-direction: column;
+        align-items: center;
+      }
+      .team-card {
+        width: 320px;
+        margin-bottom: 30px;
+      }
+      .stats {
+        flex-direction: column;
+        gap: 25px;
+        align-items: center;
+      }
+      .stat {
+        width: 240px;
+      }
+    }
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 28px;
+      }
+      p {
+        font-size: 17px;
+      }
+      .value-card {
+        width: 90%;
+        margin: 0 auto;
+      }
+      .team-card {
+        width: 90%;
+      }
+      .stat {
+        width: 90%;
+      }
+    }
+    /* 1. ظهور متدرج وأنيق مع تحريك صاعد */
+@keyframes fadeSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 2. نص الترحيب typing بالفعل لديك، بس أضيف تحسين */
+.typing {
+  animation: typingAnim 4s steps(40, end) forwards, blinkCaret 0.75s step-end infinite;
+  border-right-color: #00aaff;
+  filter: drop-shadow(0 0 5px #00aaff);
+}
+
+/* 3. بطاقات القيم - إضافة ظهور متتابع وتأثير هولوجرافي */
+.value-card {
+  opacity: 0;
+  transform: translateY(40px);
+  animation: fadeSlideUp 0.8s forwards;
+  animation-delay: var(--delay);
+  box-shadow:
+    0 12px 30px rgba(0, 170, 255, 0.25),
+    inset 0 0 12px rgba(255, 255, 255, 0.9);
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease,
+    background 0.4s ease,
+    filter 0.4s ease;
+  will-change: transform, box-shadow, filter;
+}
+
+.value-card:hover {
+  transform: translateY(-15px) scale(1.08) rotateX(3deg);
+  box-shadow:
+    0 22px 60px rgba(0, 170, 255, 0.6),
+    inset 0 0 25px rgba(255, 255, 255, 1);
+  background: linear-gradient(145deg, #80c8ff, #a0d8ff);
+  filter: drop-shadow(0 0 12px rgba(0, 122, 204, 0.9));
+  cursor: default;
+}
+
+/* 4. أيقونات SVG مع نبض توهج ناعم */
+.value-card svg {
+  animation: pulseGlow 3s infinite ease-in-out;
+  transition: fill 0.3s ease, filter 0.3s ease;
+}
+
+.value-card:hover svg {
+  fill: #004a99;
+  filter: drop-shadow(0 0 14px rgba(0, 74, 153, 1));
+}
+
+/* 5. إحصائيات - ظهور متدرج وتوهج */
+.stats {
+  animation: fadeSlideUp 1s forwards;
+  opacity: 0;
+  animation-delay: 0.5s;
+}
+
+.stat {
+  box-shadow: 0 8px 25px rgba(0, 170, 255, 0.4);
+  transition: background-color 0.3s ease, box-shadow 0.4s ease, transform 0.3s ease;
+  will-change: transform, box-shadow;
+}
+
+.stat:hover {
+  background-color: #0088cc;
+  box-shadow: 0 14px 40px rgba(0, 136, 204, 0.7);
+  transform: scale(1.08) translateZ(10px);
+  cursor: default;
+}
+
+/* 6. فريق العمل - ظهور متدرج مع حركة ارتفاع */
+.team-cards {
+  animation: fadeSlideUp 1s forwards;
+  opacity: 0;
+  animation-delay: 0.7s;
+}
+
+.team-card {
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  will-change: transform, box-shadow;
+}
+
+.team-card:hover {
+  transform: translateY(-12px) scale(1.05) rotateX(2deg);
+  box-shadow: 0 28px 70px rgba(0, 170, 255, 0.6);
+  cursor: default;
+}
+
+.team-card img {
+  transition: box-shadow 0.35s ease, transform 0.35s ease;
+}
+
+.team-card:hover img {
+  box-shadow: 0 10px 30px rgba(0, 91, 181, 1);
+  transform: scale(1.08);
+}
+
+/* 7. شهادات العملاء - ظهور مع حركة انسيابية */
+.testimonial {
+  transition: opacity 1s ease, transform 1s ease;
+}
+
+.testimonial.active {
+  animation: fadeInUp 1.3s ease forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 8. الخريطة - توهج عند التمرير */
+.map-container {
+  transition: box-shadow 0.4s ease, transform 0.3s ease;
+  will-change: box-shadow, transform;
+}
+
+.map-container:hover {
+  box-shadow: 0 30px 80px rgba(0, 170, 255, 0.7);
+  transform: scale(1.02) translateZ(10px);
+  cursor: pointer;
+}
+
+/* 9. تذييل الصفحة - توهج خفيف */
+footer {
+  transition: color 0.4s ease, text-shadow 0.4s ease;
+  user-select: none;
+}
+
+footer:hover {
+  color: #0099ff;
+  text-shadow: 0 0 15px #0099ff;
+  cursor: default;
+}
+
+/* 10. أنيميشن نبض وتوهج */
+@keyframes pulseGlow {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 6px rgba(0, 122, 204, 0.8));
+  }
+  50% {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 15px rgba(0, 122, 204, 1));
+  }
+}
+
+/* 11. fadeSlideUp لتعزيز ظهور العناصر */
+@keyframes fadeSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+  </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+<header>
+  <h1>⚡ TechZone</h1>
+  <nav>
+    <ul>
+  <li><a href="index.html" class="active"><i class="fas fa-home"></i> الرئيسية</a></li>
+  <li><a href="shop.html"><i class="fas fa-store"></i> المنتجات</a></li>
+  <li><a href="product.html"><i class="fas fa-box-open"></i> تفاصيل المنتجات</a></li>
+  <li><a href="cart.html"><i class="fas fa-shopping-cart"></i> السلة</a></li>
+  <li><a href="support.html"><i class="fas fa-headset"></i> الدعم</a></li>
+  <li><a href="search.html"><i class="fas fa-search"></i> البحث</a></li>
+  <li><a href="account.html"><i class="fas fa-user"></i> حسابي</a></li>
+  <li><a href="about.html"><i class="fas fa-info-circle"></i> من نحن</a></li>
+</ul>
+</header>
+<body>
+  <main>
+    <h1>من نحن</h1>
+    <div class="typing">نحن شركة رائدة في توزيع وبيع أجهزة إلكترونية من جميع الأصناف، ونفخر بخدمة عملائنا-.</div>
+
+  <p>
+  تأسست شركة <strong>⚡ TechZone</strong> برؤية واضحة لتقديم حلول إلكترونية متكاملة ومتطورة تلبي كافة احتياجات عملائنا في السوق المحلي والإقليمي. نسعى لأن نكون الخيار الأول لكل من يبحث عن أجهزة إلكترونية ذات جودة عالية وتقنيات حديثة تواكب التطورات العالمية، مع تقديم خدمات مميزة تضفي على تجربة الشراء سهولة وثقة. نؤمن بأن التكنولوجيا هي المحرك الأساسي لتطوير المجتمع، ولذلك نلتزم بتوفير منتجات ذكية وفعالة بأسعار تنافسية.
+</p>
+<p>
+  لدى <strong>⚡ TechZone</strong> خبرة واسعة تمتد لسنوات عديدة في مجال توزيع وبيع الأجهزة الإلكترونية، مما يمنحنا فهماً عميقاً لاحتياجات السوق ومتطلبات العملاء المختلفة. نحن نعمل باستمرار على تحديث مخزوننا ليشمل أحدث الإصدارات وأفضل العلامات التجارية، مع التركيز على تقديم دعم فني متميز وخدمة عملاء سريعة وفعالة. رضا العميل ليس فقط هدفاً، بل هو أساس نجاحنا واستمرارنا في سوق متغير ومتطور.
+</p>
+
+
+    <h2>قيمنا الأساسية</h2>
+    <section class="values" aria-label="قيم الشركة" role="list">
+      <article class="value-card" role="listitem" tabindex="0" style="--delay: 0s;">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#00aaff" stroke-width="2" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="32" cy="32" r="30"/>
+          <path d="M16 32l8 8 16-24"/>
+        </svg>
+        <h3>جودة عالية لا تضاهى</h3>
+        <p>
+          نحن نلتزم باختيار أفضل وأحدث الأجهزة الإلكترونية التي تخضع لفحوصات دقيقة لضمان أعلى معايير الجودة، لأن رضا العميل هو أولويتنا القصوى.
+        </p>
+      </article>
+      <article class="value-card" role="listitem" tabindex="0" style="--delay: 0.3s;">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#00aaff" stroke-width="2" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="32" cy="32" r="30"/>
+          <path d="M22 22h20v20H22z"/>
+        </svg>
+        <h3>دعم فني متواصل</h3>
+        <p>
+          نوفر لعملائنا فريق دعم متخصص متاح على مدار الساعة لتقديم المساعدة والإجابة على كل استفساراتهم، لأننا نؤمن بأهمية الدعم المستمر.
+        </p>
+      </article>
+      <article class="value-card" role="listitem" tabindex="0" style="--delay: 0.6s;">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#00aaff" stroke-width="2" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="32" cy="32" r="30"/>
+          <path d="M16 32h32"/>
+        </svg>
+        <h3>توصيل سريع وآمن</h3>
+        <p>
+          نضمن وصول منتجاتنا إلى عملائنا بسرعة وبأفضل حال، مع اتباع أعلى معايير التعبئة والشحن للحفاظ على سلامة الأجهزة أثناء النقل.
+        </p>
+      </article>
+    </section>
+
+    <h2>إحصائياتنا</h2>
+    <section class="stats" aria-label="إحصائيات الشركة">
+      <div class="stat" tabindex="0">
+        <div class="number counter" data-target="350000">0</div>
+        <div class="label">منتج مباع</div>
+      </div>
+      <div class="stat" tabindex="0">
+        <div class="number counter" data-target="70000">0</div>
+        <div class="label">عميل راضٍ</div>
+      </div>
+      <div class="stat" tabindex="0">
+        <div class="number counter" data-target="13">0</div>
+        <div class="label">سنة خبرة</div>
+      </div>
+    </section>
+
+    <h2>فريق العمل</h2>
+    <section class="team" aria-label="فريق العمل">
+      <div class="team-cards">
+        <div class="team-card" tabindex="0">
+          <h3>م/أحمد محمد السنوسي</h3>
+          <p>مدير المبيعات وخدمة العملاء، يعمل على ضمان رضا كل عميل بخبرة واسعة.</p>
+        </div>
+        <div class="team-card" tabindex="0">
+          <h3>م/سارة علي الراضي</h3>
+          <p>المسؤولة عن الدعم الفني وتدريب العملاء على استخدام الأجهزة بكل سهولة.</p>
+        </div>
+        <div class="team-card" tabindex="0">
+          <h3>م/كريم علي الهادي</h3>
+          <p>مختص اللوجيستيات والشحن لضمان وصول المنتجات بأمان وفي الوقت المحدد.</p>
+        </div>
+      </div>
+    </section>
+
+    <h2>شهادات العملاء</h2>
+    <section class="testimonials" aria-label="شهادات العملاء">
+      <div class="testimonial active" tabindex="0">
+        "خدمة رائعة وسريعة! المنتجات وصلتني بحالة ممتازة وأنا سعيد جدًا بالتعامل مع الشركة."
+        <br>– عميل من القاهرة
+      </div>
+      <div class="testimonial" tabindex="0">
+        "فريق الدعم متعاون جدًا وأجاب على كل استفساراتي بسرعة. أوصي بهم بشدة."
+        <br>– عميلة من الإسكندرية
+      </div>
+      <div class="testimonial" tabindex="0">
+        "تجربة شراء سهلة وبسيطة، والتوصيل كان في الموعد المحدد تمامًا."
+        <br>– عميل من العاشر من رمضان
+      </div>
+    </section>
+
+    <h2>موقعنا على الخريطة</h2>
+    <div class="map-container" aria-label="خريطة موقع الشركة">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d13792.540582260484!2d31.7364149529451!3d30.299171082936883!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x145840b07b8c74e1%3A0x49b2d9e631aefa1a!2z2KfZhNi52YTZiNin2YTYqNi52KfYsSDZitmE2YrYqSDYp9mE2YLYqSDYqNiz2YQg2KfZhNin2YTZhdmE!5e0!3m2!1sar!2seg!4v1691051134723!5m2!1sar!2seg"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="موقع الشركة على الخريطة"
+      ></iframe>
+    </div>
+  </main>
+
+<footer>
+  <div class="footer-container">
+    <div class="footer-section about">
+      <h3>عن الشركة</h3>
+<p>
+  ⚡ TechZone هي شركة رائدة في توزيع وبيع الأجهزة الإلكترونية المتنوعة، نتمتع بخبرة واسعة تمتد لسنوات عديدة في السوق المصري والعالمي. نحن ملتزمون بتقديم أحدث وأفضل المنتجات التي تلبي احتياجات عملائنا بجودة لا مثيل لها وخدمة عملاء متميزة. رؤيتنا هي تسهيل حياة الناس من خلال توفير حلول تكنولوجية مبتكرة، مع ضمان تجربة شراء سلسة وآمنة. في TechZone، نؤمن بأن التكنولوجيا هي مستقبل الحياة، ونحن هنا لنكون شركاؤكم في هذا المستقبل.
+</p>
+    </div>
+    <div class="footer-section links">
+      <h3>روابط مهمة</h3>
+      <ul>
+        <li><a href="#">الرئيسية</a></li>
+        <li><a href="#">المنتجات</a></li>
+        <li><a href="#">عنا</a></li>
+        <li><a href="#">اتصل بنا</a></li>
+        <li><a href="#">سياسة الخصوصية</a></li>
+      </ul>
+    </div>
+    <div class="footer-section contact">
+      <h3>تواصل معنا</h3>
+      <p>📍 العاشر من رمضان - المجاورة 7</p>
+      <p>📞 الهاتف: 0123456789</p>
+      <p>✉ البريد الإلكتروني: TechZone121@gmail.com</p>
+      <div class="social-icons">
+        <a href="#" aria-label="فيسبوك" target="_blank" rel="noopener noreferrer">
+          <svg width="24" height="24" fill="#55acee" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M22 12c0-5.522-4.477-10-10-10S2 6.478 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54v-2.89h2.54v-2.204c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.462h-1.26c-1.243 0-1.63.772-1.63 1.562v1.876h2.773l-.443 2.89h-2.33v6.987C18.343 21.128 22 16.991 22 12z"/>
+          </svg>
+        </a>
+        <a href="#" aria-label="تويتر" target="_blank" rel="noopener noreferrer">
+          <svg width="24" height="24" fill="#1da1f2" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M23 3a10.9 10.9 0 01-3.14.86 4.48 4.48 0 001.98-2.48 9.14 9.14 0 01-2.9 1.1 4.52 4.52 0 00-7.7 4.13A12.86 12.86 0 013 4.78a4.52 4.52 0 001.4 6.04 4.42 4.42 0 01-2.05-.56v.06a4.52 4.52 0 003.63 4.43 4.52 4.52 0 01-2.04.08 4.52 4.52 0 004.21 3.14A9.06 9.06 0 013 19.54a12.84 12.84 0 006.92 2.03c8.3 0 12.85-6.9 12.85-12.85 0-.2 0-.39-.01-.58A9.2 9.2 0 0023 3z"/>
+          </svg>
+        </a>
+        <a href="#" aria-label="إنستغرام" target="_blank" rel="noopener noreferrer">
+          <svg width="24" height="24" fill="#e1306c" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M7 2C4.243 2 2 4.243 2 7v10c0 2.757 2.243 5 5 5h10c2.757 0 5-2.243 5-5V7c0-2.757-2.243-5-5-5H7zm10 3a1 1 0 110 2 1 1 0 010-2zm-5 2.5a4.5 4.5 0 110 9 4.5 4.5 0 010-9zm0 2a2.5 2.5 0 100 5 2.5 2.5 0 000-5z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 جميع الحقوق محفوظة ⚡ TechZone  </p>
+  </div>
+</footer>
+
+<style>
+  footer {
+    background: #001f3f; /* أزرق داكن جداً */
+    color: #eee; /* نص فاتح */
+    font-family: 'Cairo', sans-serif;
+    user-select: none;
+  }
+  .footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1100px;
+    margin: auto;
+    padding: 40px 20px 25px;
+  }
+  .footer-section {
+    flex: 1 1 280px;
+    margin: 10px 20px;
+  }
+  .footer-section h3 {
+    font-size: 22px;
+    margin-bottom: 20px;
+    letter-spacing: 0.04em;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    color: #fff;
+  }
+  .footer-section p, 
+  .footer-section ul {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #ddd;
+  }
+  .footer-section ul {
+    list-style: none;
+    padding: 0;
+  }
+  .footer-section ul li {
+    margin-bottom: 12px;
+  }
+  .footer-section ul li a {
+    color: #a0cfff; /* أزرق فاتح */
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  .footer-section ul li a:hover {
+    color: #00aaff;
+    text-decoration: underline;
+  }
+
+  /* أيقونات التواصل */
+  .social-icons {
+    margin-top: 15px;
+    display: flex;
+    gap: 18px;
+  }
+  .social-icons a {
+    display: inline-block;
+    transition: transform 0.3s ease, filter 0.3s ease;
+    filter: drop-shadow(0 0 2px rgba(0,0,0,0.4));
+  }
+  .social-icons a:hover {
+    transform: scale(1.2);
+    filter: drop-shadow(0 0 6px #00aaff);
+  }
+
+  /* القسم الأسفل */
+  .footer-bottom {
+    background: #000c19; /* أزرق غامق جداً */
+    text-align: center;
+    padding: 18px 10px;
+    font-size: 14px;
+    letter-spacing: 0.02em;
+    color: #bbb;
+    user-select: none;
+  }
+
+  /* استجابة */
+  @media (max-width: 768px) {
+    .footer-container {
+      flex-direction: column;
+      padding: 30px 20px 20px;
+    }
+    .footer-section {
+      margin: 20px 0;
+    }
+  }
+</style>
+
+
+
+  <script>
+    // عداد إحصائيات بسيط
+    const counters = document.querySelectorAll('.counter');
+    counters.forEach(counter => {
+      counter.innerText = '0';
+      const updateCount = () => {
+        const target = +counter.getAttribute('data-target');
+        const count = +counter.innerText;
+        const increment = target / 200; // سرعة العداد
+
+        if(count < target) {
+          counter.innerText = Math.ceil(count + increment);
+          setTimeout(updateCount, 15);
+        } else {
+          counter.innerText = target.toLocaleString();
+        }
+      };
+      updateCount();
+    });
+
+    // تبديل شهادات العملاء كل 5 ثواني
+    const testimonials = document.querySelectorAll('.testimonial');
+    let currentIndex = 0;
+    setInterval(() => {
+      testimonials[currentIndex].classList.remove('active');
+      currentIndex = (currentIndex + 1) % testimonials.length;
+      testimonials[currentIndex].classList.add('active');
+    }, 5000);
+  </script>
+</body>
+</html>

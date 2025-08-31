@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>عربة التسوق | TechZone</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+  font-family: 'Cairo', sans-serif;
+  margin: 0;
+  background: #f7f9fa;
+  color: #333;
+  scroll-behavior: smooth;
+}
+
+header {
+  background: #0d1b2a;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  animation: fadeSlideDown 1s ease-out both;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  padding: 0;
+  margin: 10px 0 0;
+  animation: fadeIn 1.2s ease both;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+nav ul li a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: #00aaff;
+  transition: width 0.4s ease;
+}
+
+nav ul li a:hover::after {
+  width: 100%;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 30px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  animation: zoomIn 1s ease both;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #ddd;
+  padding: 15px 0;
+  animation: fadeInUp 0.7s ease both;
+}
+
+.cart-item img {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-left: 15px;
+  transition: transform 0.3s ease;
+}
+
+.cart-item img:hover {
+  transform: scale(1.08);
+}
+
+.item-info {
+  flex: 1;
+}
+
+.item-info h3 {
+  margin: 0;
+  font-size: 18px;
+  animation: fadeIn 1s ease both;
+}
+
+.qty-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  animation: fadeInRight 0.8s ease both;
+}
+
+.qty-controls button {
+  padding: 5px 10px;
+  font-size: 16px;
+  background: #0d1b2a;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s ease;
+}
+
+.qty-controls button:hover {
+  background: #007acc;
+  transform: scale(1.1);
+}
+
+.remove-btn {
+  background: none;
+  border: none;
+  color: crimson;
+  font-size: 14px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.remove-btn:hover {
+  transform: scale(1.1);
+}
+
+.cart-summary {
+  text-align: left;
+  margin-top: 30px;
+  font-size: 18px;
+  animation: slideLeft 1s ease both;
+}
+
+.cart-summary span {
+  font-weight: bold;
+  color: #00aaff;
+}
+
+.checkout-btn {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  background: #00aaff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease;
+  animation: bounceIn 1.2s ease both;
+}
+
+.checkout-btn:hover {
+  background: #008fcc;
+  transform: scale(1.05) translateY(-3px);
+}
+
+/* ========== ANIMATIONS ========== */
+
+@keyframes fadeSlideDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideLeft {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+  </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+<body>
+
+<header>
+  <h1>🛒 عربة التسوق</h1>
+  <nav>
+    <ul>
+  <li><a href="index.html" class="active"><i class="fas fa-home"></i> الرئيسية</a></li>
+  <li><a href="shop.html"><i class="fas fa-store"></i> المنتجات</a></li>
+  <li><a href="product.html"><i class="fas fa-box-open"></i> تفاصيل المنتجات</a></li>
+  <li><a href="cart.html"><i class="fas fa-shopping-cart"></i> السلة</a></li>
+  <li><a href="support.html"><i class="fas fa-headset"></i> الدعم</a></li>
+  <li><a href="search.html"><i class="fas fa-search"></i> البحث</a></li>
+  <li><a href="account.html"><i class="fas fa-user"></i> حسابي</a></li>
+  <li><a href="about.html"><i class="fas fa-info-circle"></i> من نحن</a></li>
+</ul>
+  </nav>
+</header>
+
+<div class="container">
+  <div id="cart-items">
+    <!-- العناصر هنا -->
+  </div>
+
+  <div class="cart-summary">
+    الإجمالي: <span id="total-price">0</span> جنيه
+  </div>
+
+  <button class="checkout-btn" onclick="goToCheckout()">إتمام الطلب</button>
+</div>
+<footer>
+  <div class="footer-container">
+    <div class="footer-section about">
+      <h3>عن الشركة</h3>
+<p>
+  ⚡ TechZone هي شركة رائدة في توزيع وبيع الأجهزة الإلكترونية المتنوعة، نتمتع بخبرة واسعة تمتد لسنوات عديدة في السوق المصري والعالمي. نحن ملتزمون بتقديم أحدث وأفضل المنتجات التي تلبي احتياجات عملائنا بجودة لا مثيل لها وخدمة عملاء متميزة. رؤيتنا هي تسهيل حياة الناس من خلال توفير حلول تكنولوجية مبتكرة، مع ضمان تجربة شراء سلسة وآمنة. في TechZone، نؤمن بأن التكنولوجيا هي مستقبل الحياة، ونحن هنا لنكون شركاؤكم في هذا المستقبل.
+</p>
+    </div>
+    <div class="footer-section links">
+      <h3>روابط مهمة</h3>
+      <ul>
+        <li><a href="#">الرئيسية</a></li>
+        <li><a href="#">المنتجات</a></li>
+        <li><a href="#">عنا</a></li>
+        <li><a href="#">اتصل بنا</a></li>
+        <li><a href="#">سياسة الخصوصية</a></li>
+      </ul>
+    </div>
+    <div class="footer-section contact">
+      <h3>تواصل معنا</h3>
+      <p>📍 العاشر من رمضان - المجاورة 7</p>
+      <p>📞 الهاتف: 0123456789</p>
+      <p>✉ البريد الإلكتروني: TechZone121@gmail.com</p>
+      <div class="social-icons">
+        <a href="#" aria-label="فيسبوك" target="_blank" rel="noopener noreferrer">
+          <svg width="24" height="24" fill="#55acee" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M22 12c0-5.522-4.477-10-10-10S2 6.478 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54v-2.89h2.54v-2.204c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.462h-1.26c-1.243 0-1.63.772-1.63 1.562v1.876h2.773l-.443 2.89h-2.33v6.987C18.343 21.128 22 16.991 22 12z"/>
+          </svg>
+        </a>
+        <a href="#" aria-label="تويتر" target="_blank" rel="noopener noreferrer">
+          <svg width="24" height="24" fill="#1da1f2" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M23 3a10.9 10.9 0 01-3.14.86 4.48 4.48 0 001.98-2.48 9.14 9.14 0 01-2.9 1.1 4.52 4.52 0 00-7.7 4.13A12.86 12.86 0 013 4.78a4.52 4.52 0 001.4 6.04 4.42 4.42 0 01-2.05-.56v.06a4.52 4.52 0 003.63 4.43 4.52 4.52 0 01-2.04.08 4.52 4.52 0 004.21 3.14A9.06 9.06 0 013 19.54a12.84 12.84 0 006.92 2.03c8.3 0 12.85-6.9 12.85-12.85 0-.2 0-.39-.01-.58A9.2 9.2 0 0023 3z"/>
+          </svg>
+        </a>
+        <a href="#" aria-label="إنستغرام" target="_blank" rel="noopener noreferrer">
+          <svg width="24" height="24" fill="#e1306c" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M7 2C4.243 2 2 4.243 2 7v10c0 2.757 2.243 5 5 5h10c2.757 0 5-2.243 5-5V7c0-2.757-2.243-5-5-5H7zm10 3a1 1 0 110 2 1 1 0 010-2zm-5 2.5a4.5 4.5 0 110 9 4.5 4.5 0 010-9zm0 2a2.5 2.5 0 100 5 2.5 2.5 0 000-5z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 جميع الحقوق محفوظة ⚡ TechZone  </p>
+  </div>
+</footer>
+
+<style>
+  footer {
+    background: #001f3f; /* أزرق داكن جداً */
+    color: #eee; /* نص فاتح */
+    font-family: 'Cairo', sans-serif;
+    user-select: none;
+  }
+  .footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1100px;
+    margin: auto;
+    padding: 40px 20px 25px;
+  }
+  .footer-section {
+    flex: 1 1 280px;
+    margin: 10px 20px;
+  }
+  .footer-section h3 {
+    font-size: 22px;
+    margin-bottom: 20px;
+    letter-spacing: 0.04em;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    color: #fff;
+  }
+  .footer-section p, 
+  .footer-section ul {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #ddd;
+  }
+  .footer-section ul {
+    list-style: none;
+    padding: 0;
+  }
+  .footer-section ul li {
+    margin-bottom: 12px;
+  }
+  .footer-section ul li a {
+    color: #a0cfff; /* أزرق فاتح */
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  .footer-section ul li a:hover {
+    color: #00aaff;
+    text-decoration: underline;
+  }
+
+  /* أيقونات التواصل */
+  .social-icons {
+    margin-top: 15px;
+    display: flex;
+    gap: 18px;
+  }
+  .social-icons a {
+    display: inline-block;
+    transition: transform 0.3s ease, filter 0.3s ease;
+    filter: drop-shadow(0 0 2px rgba(0,0,0,0.4));
+  }
+  .social-icons a:hover {
+    transform: scale(1.2);
+    filter: drop-shadow(0 0 6px #00aaff);
+  }
+
+  /* القسم الأسفل */
+  .footer-bottom {
+    background: #000c19; /* أزرق غامق جداً */
+    text-align: center;
+    padding: 18px 10px;
+    font-size: 14px;
+    letter-spacing: 0.02em;
+    color: #bbb;
+    user-select: none;
+  }
+
+  /* استجابة */
+  @media (max-width: 768px) {
+    .footer-container {
+      flex-direction: column;
+      padding: 30px 20px 20px;
+    }
+    .footer-section {
+      margin: 20px 0;
+    }
+  }
+</style>
+<script>
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  function renderCart() {
+    const container = document.getElementById("cart-items");
+    container.innerHTML = "";
+    let total = 0;
+
+    if (cart.length === 0) {
+      container.innerHTML = "<p>🛍️ عربة التسوق فارغة حالياً.</p>";
+      document.getElementById("total-price").innerText = "0";
+      return;
+    }
+
+    cart.forEach(item => {
+      total += item.price * item.quantity;
+      const div = document.createElement("div");
+      div.className = "cart-item";
+      div.innerHTML = `
+        <img src="${item.image}" alt="">
+        <div class="item-info">
+          <h3>${item.name}</h3>
+          <p>${item.price} × ${item.quantity}</p>
+        </div>
+        <div class="qty-controls">
+          <button onclick="changeQty(${item.id}, 1)">+</button>
+          <button onclick="changeQty(${item.id}, -1)">-</button>
+        </div>
+        <button class="remove-btn" onclick="removeItem(${item.id})">حذف</button>
+      `;
+      container.appendChild(div);
+    });
+
+    document.getElementById("total-price").innerText = total;
+  }
+
+  function changeQty(id, change) {
+    const item = cart.find(p => p.id === id);
+    if (!item) return;
+    item.quantity += change;
+    if (item.quantity < 1) item.quantity = 1;
+    localStorage.setItem("cart", JSON.stringify(cart));
+    renderCart();
+  }
+
+  function removeItem(id) {
+    cart = cart.filter(p => p.id !== id);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    renderCart();
+  }
+
+  function goToCheckout() {
+    if (cart.length === 0) {
+      alert("❗ لا يمكنك إتمام الطلب بدون منتجات.");
+      return;
+    }
+    window.location.href = "checkout.html";
+  }
+
+  window.onload = renderCart;
+</script>
+
+</body>
+</html>

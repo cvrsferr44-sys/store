@@ -1,0 +1,1660 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>الرئيسية | TechZone</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cairo&family=Open+Sans&display=swap');
+
+    body {
+      margin: 0;
+      font-family: 'Open Sans', sans-serif;
+      background: #fff;
+      color: #333;
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    header {
+      background: #0d1b2a;
+      color: white;
+      padding: 20px 10px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+    }
+    header h1 {
+      margin: 0;
+      font-family: 'Cairo', sans-serif;
+      font-weight: 700;
+      font-size: 28px;
+      letter-spacing: 2px;
+      text-align: center;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      padding: 10px 0 0;
+      margin: 0;
+      flex-wrap: wrap;
+    }
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      padding: 8px 12px;
+      border-radius: 6px;
+      transition: background-color 0.3s ease;
+    }
+    nav ul li a:hover,
+    nav ul li a.active {
+      background-color: #00aaff;
+    }
+
+    /* السلايدر الأساسي */
+    .slider {
+      position: relative;
+      width: 100%;
+      max-height: 400px;
+      overflow: hidden;
+      border-radius: 12px;
+      margin-top: 15px;
+      user-select: none;
+    }
+    .slides {
+      position: relative;
+      height: 400px;
+    }
+    .slide {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 400px;
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-family: 'Cairo', sans-serif;
+      font-size: 32px;
+      font-weight: 700;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
+      opacity: 0;
+      transition: opacity 0.7s ease-in-out;
+      pointer-events: none;
+      border-radius: 12px;
+    }
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      position: relative;
+    }
+    .slide::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.5), transparent 60%);
+      border-radius: 12px;
+      z-index: 1;
+    }
+    .slide > span {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* أزرار التنقل للسلايدر الأساسي (مخفية حسب طلب) */
+    .slider-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.4);
+      border: none;
+      color: white;
+      font-size: 30px;
+      padding: 10px 15px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      z-index: 10;
+      user-select: none;
+      display: none;
+    }
+    .slider-btn:hover {
+      background: #00aaff;
+    }
+    .prev-btn {
+      left: 15px;
+    }
+    .next-btn {
+      right: 15px;
+    }
+
+    /* السلايدر الإعلاني (نصوص مع أيقونات) */
+    .ad-slider-container {
+  margin-top: 15px;
+  overflow: hidden;
+  max-width: 100%;
+  background: #00aaff;
+  border-radius: 10px;
+  padding: 10px 0;
+  box-shadow: 0 4px 10px rgba(0,170,255,0.3);
+  user-select: none;
+}
+
+.ad-slider-track {
+  display: flex;
+  gap: 30px;
+  padding-right: 100%; /* بدل padding-left عشان يبدأ من جهة اليسار */
+  animation: scroll-right 40s linear infinite; /* استدعاء أنيميشن عكس الاتجاه */
+  align-items: center;
+  color: white;
+  font-weight: 700;
+  font-family: 'Cairo', sans-serif;
+  font-size: 18px;
+}
+
+.ad-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.ad-item img {
+  width: 30px;
+  height: 30px;
+  filter: drop-shadow(0 0 2px rgba(0,0,0,0.5));
+}
+
+/* keyframes لتحريك الشريط من اليسار إلى اليمين */
+@keyframes scroll-right {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+
+    @keyframes scroll-left {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-100%);
+      }
+    }
+
+    /* باقي الأقسام */
+    .categories {
+      padding: 50px 20px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+      font-family: 'Cairo', sans-serif;
+    }
+    .categories h2 {
+      font-size: 28px;
+      margin-bottom: 30px;
+      color: #0d1b2a;
+    }
+    .cat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 30px;
+    }
+    .category-card {
+      background: #f0f5f9;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      user-select: none;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-bottom: 15px;
+    }
+    .category-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+    .category-card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+      border-radius: 16px 16px 0 0;
+    }
+    .category-card:hover img {
+      transform: scale(1.08);
+    }
+    .category-card p {
+      margin: 15px 0 0;
+      font-size: 20px;
+      font-weight: 600;
+      color: #0d1b2a;
+    }
+
+    /* منتجات الأكثر مبيعًا */
+   .featured-grid {
+  max-width: 1200px;
+  margin: 50px auto;
+  padding: 0 20px;
+  font-family: 'Cairo', sans-serif;
+}
+
+.featured-grid h2 {
+  font-size: 28px;
+  color: #0d1b2a;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.product-card {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+  padding: 15px;
+  text-align: center;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.product-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+.product-card img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+
+.product-card h3 {
+  margin: 0 0 8px;
+  font-weight: 700;
+  font-size: 18px;
+  color: #0d1b2a;
+}
+
+.product-card .price {
+  color: #00aaff;
+  font-weight: 700;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.product-card .stars {
+  color: gold;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.product-card button {
+  padding: 10px 16px;
+  margin: 6px 8px;
+  border-radius: 10px;
+  border: none;
+  font-weight: 700;
+  font-size: 15px;
+  font-family: 'Cairo', sans-serif;
+  color: #fff;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  transition: all 0.4s ease;
+  background-size: 200% auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: perspective(600px) translateZ(0);
+}
+
+/* زر الإضافة للسلة بتدرج أزرق فخم */
+.btn-add {
+  background-image: linear-gradient(135deg, #0d1b2a 0%, #007acc 100%);
+}
+
+.btn-add:hover {
+  background-position: right center;
+  transform: scale(1.07) rotate(-1deg);
+  box-shadow: 0 10px 20px rgba(0, 122, 204, 0.4);
+}
+
+/* زر التفاصيل بتدرج سماوي جذاب */
+.btn-details {
+  background-image: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%);
+}
+
+.btn-details:hover {
+  background-position: left center;
+  transform: scale(1.07) rotate(1deg);
+  box-shadow: 0 10px 20px rgba(0, 114, 255, 0.4);
+}
+
+/* تأثير وميض ضوئي عند hover */
+.product-card button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.1) 0%, rgba(255,255,255,0.5) 100%);
+  transform: skewX(-25deg);
+  transition: left 0.6s ease;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.product-card button:hover::before {
+  left: 130%;
+}
+
+/* تأثير عند الضغط */
+.product-card button:active {
+  transform: scale(0.94);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.2) inset;
+}
+
+
+  .product-card {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+    padding: 15px;
+    width: 220px;
+    flex-shrink: 0;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    position: relative;
+  }
+
+  .product-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+  }
+
+  .product-card img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 12px;
+  }
+
+  .product-card h3 {
+    font-weight: 700;
+    font-size: 18px;
+    margin: 0 0 8px;
+    color: #0d1b2a;
+  }
+
+  .product-card .price {
+    color: #00aaff;
+    font-weight: 700;
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+
+  .product-card .stars {
+    color: gold;
+    font-size: 14px;
+    margin-bottom: 12px;
+  }
+
+  .product-card button {
+    padding: 8px 14px;
+    margin: 5px 6px;
+    border-radius: 8px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    user-select: none;
+  }
+/* صورة المنتج داخل البطاقة */
+.product-card img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 12px;
+  transition: transform 0.4s ease, filter 0.4s ease;
+  transform-origin: center;
+}
+
+.product-card:hover img {
+  transform: scale(1.05);
+  filter: brightness(1.1) saturate(1.2);
+}
+
+/* عنوان المنتج */
+.product-card h3 {
+  margin: 0 0 8px;
+  font-weight: 700;
+  font-size: 18px;
+  color: #0d1b2a;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.product-card:hover h3 {
+  color: #007acc;
+}
+
+/* السعر */
+.product-card .price {
+  color: #00aaff;
+  font-weight: 700;
+  font-size: 16px;
+  margin-bottom: 8px;
+  position: relative;
+  animation: floatPrice 4s ease-in-out infinite;
+}
+
+@keyframes floatPrice {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+/* التقييم بالنجوم */
+.product-card .stars {
+  color: gold;
+  font-size: 14px;
+  margin-bottom: 12px;
+  letter-spacing: 1px;
+  transition: transform 0.4s ease;
+}
+
+.product-card:hover .stars {
+  transform: scale(1.1) rotate(-2deg);
+}
+
+/* الأزرار */
+.product-card button {
+  padding: 8px 14px;
+  margin: 5px 6px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  user-select: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.product-card button::after {
+  content: "";
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255,255,255,0.2);
+  transition: left 0.4s ease;
+}
+
+.product-card button:hover::after {
+  left: 0;
+}
+
+.product-card button:hover {
+  transform: scale(1.05);
+}
+.product-card button {
+  padding: 8px 14px;
+  margin: 5px 6px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+  font-size: 15px;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  user-select: none;
+  z-index: 0;
+}
+
+.product-card button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 170, 255, 0.3);
+}
+
+/* تأثير وميض ضوئي عند التحويم */
+.product-card button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(120deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.5) 100%);
+  transform: skewX(-25deg);
+  transition: left 0.5s ease;
+  z-index: -1;
+}
+
+.product-card button:hover::before {
+  left: 130%;
+}
+
+/* زر الإضافة للسلة */
+.btn-add {
+  background-color: #0d1b2a;
+  color: white;
+}
+.btn-add:hover {
+  background-color: #007acc;
+}
+
+/* زر التفاصيل */
+.btn-details {
+  background-color: #00aaff;
+  color: white;
+}
+.btn-details:hover {
+  background-color: #0088cc;
+}
+
+  /* استجابة للهواتف */
+  @media (max-width: 600px) {
+    .product-card {
+      width: 160px;
+    }
+  }
+    .btn-add {
+      background-color: #0d1b2a;
+      color: white;
+    }
+    .btn-add:hover {
+      background-color: #007acc;
+    }
+    .btn-details {
+      background-color: #00aaff;
+      color: white;
+    }
+    .btn-details:hover {
+      background-color: #0088cc;
+    }
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.3);
+      border: none;
+      color: white;
+      font-size: 26px;
+      padding: 8px 12px;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 20;
+      user-select: none;
+      transition: background-color 0.3s ease;
+    }
+    .carousel-btn:hover {
+      background-color: #00aaff;
+    }
+    .carousel-prev {
+      left: 10px;
+    }
+    .carousel-next {
+      right: 10px;
+    }
+
+    /* مراجعات العملاء */
+    .reviews {
+      background: #f9fbff;
+      padding: 40px 20px 60px;
+      max-width: 900px;
+      margin: 60px auto 80px;
+      border-radius: 20px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+      font-style: italic;
+      font-size: 18px;
+      color: #555;
+      position: relative;
+      user-select: none;
+    }
+    .review {
+      display: none;
+      text-align: center;
+      line-height: 1.5;
+      padding: 20px 30px;
+    }
+    .review.active {
+      display: block;
+      animation: fadeIn 1s ease forwards;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(10px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    /* النشرة البريدية */
+    .newsletter {
+      background: #0d1b2a;
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+      border-radius: 20px 20px 0 0;
+      font-family: 'Cairo', sans-serif;
+      user-select: none;
+    }
+    .newsletter h2 {
+      font-size: 26px;
+      margin-bottom: 15px;
+    }
+    .newsletter input {
+      padding: 12px 15px;
+      width: 320px;
+      max-width: 90%;
+      border-radius: 8px;
+      border: none;
+      font-size: 16px;
+      margin-right: 10px;
+      outline: none;
+    }
+    .newsletter input:focus {
+      box-shadow: 0 0 10px #00aaff;
+    }
+    .newsletter button {
+      padding: 12px 22px;
+      background: #00aaff;
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 16px;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .newsletter button:hover {
+      background: #0088cc;
+    }
+    .newsletter .msg {
+      margin-top: 15px;
+      font-size: 15px;
+      font-weight: 600;
+      min-height: 24px;
+    }
+
+    /* استجابة موبايل */
+    @media (max-width: 800px) {
+      .slide {
+        font-size: 22px;
+        height: 280px;
+      }
+      .feat-card {
+        flex: 0 0 160px;
+      }
+      nav ul {
+        gap: 15px;
+      }
+      .ad-slider-track {
+        font-size: 16px;
+        gap: 20px;
+      }
+      .ad-item img {
+        width: 24px;
+        height: 24px;
+      }
+    }
+    #scrollTop {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  background: #00aaff;
+  color: white;
+  padding: 10px 14px;
+  font-size: 18px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  opacity: 0;
+  z-index: 999;
+}
+
+#scrollTop.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+    #scrollTop:hover {
+      background: #0088cc;
+      transform: translateY(-3px);
+    }
+
+    /* Footer */
+    footer {
+      background: #001f3f;
+      color: #eee;
+      font-family: 'Cairo', sans-serif;
+      padding: 40px 20px;
+      text-align: center;
+    }
+    footer .footer-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: auto;
+    }
+    footer .footer-section {
+      flex: 1 1 280px;
+      margin: 10px 20px;
+    }
+    footer .footer-section h3 {
+      font-size: 22px;
+      margin-bottom: 15px;
+    }
+    footer .footer-section p, 
+    footer .footer-section ul {
+      font-size: 16px;
+      line-height: 1.6;
+    }
+    footer .footer-section ul {
+      list-style: none;
+      padding: 0;
+    }
+    footer .footer-section ul li {
+      margin-bottom: 10px;
+    }
+    footer .footer-section ul li a {
+      color: #a0cfff; /* أزرق فاتح */
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    footer .footer-section ul li a:hover {
+      color: #00aaff; /* أزرق داكن */
+    }
+    footer .social-icons a {
+      display: inline-block;
+      margin-right: 15px;
+      color: #55acee; /* لون فيسبوك */
+      transition: transform 0.3s ease, filter 0.3s ease;
+    }
+/* ========== Animations ========== */
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+@keyframes slideUp {
+  from {transform: translateY(40px); opacity: 0;}
+  to {transform: translateY(0); opacity: 1;}
+}
+@keyframes zoomIn {
+  from {transform: scale(0.8); opacity: 0;}
+  to {transform: scale(1); opacity: 1;}
+}
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+@keyframes scaleIn {
+  0% {transform: scale(0.5); opacity: 0;}
+  100% {transform: scale(1); opacity: 1;}
+}
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0); }
+}
+@keyframes flipIn {
+  from {
+    transform: perspective(600px) rotateY(90deg);
+    opacity: 0;
+  }
+  to {
+    transform: perspective(600px) rotateY(0deg);
+    opacity: 1;
+  }
+}
+@keyframes rotateIn {
+  from {
+    transform: rotate(-200deg);
+    opacity: 0;
+  }
+  to {
+    transform: rotate(0);
+    opacity: 1;
+  }
+}
+@keyframes fadeUpScale {
+  from {
+    transform: translateY(40px) scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes wave {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(3deg); }
+  50% { transform: rotate(-3deg); }
+  75% { transform: rotate(3deg); }
+  100% { transform: rotate(0deg); }
+}
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 0 rgba(0, 170, 255, 0.7); }
+  50% { box-shadow: 0 0 20px rgba(0, 170, 255, 1); }
+  100% { box-shadow: 0 0 0 rgba(0, 170, 255, 0.7); }
+}
+
+/* ========== Animation Classes ========== */
+.fade-in { animation: fadeIn 1s ease-in-out both; }
+.slide-up { animation: slideUp 1s ease-in-out both; }
+.zoom-in { animation: zoomIn 1s ease-in-out both; }
+.bounce { animation: bounce 2s infinite; }
+.scale-in { animation: scaleIn 0.8s ease-in-out both; }
+.float { animation: float 2s infinite ease-in-out; }
+.flip-in { animation: flipIn 1s ease-out both; }
+.rotate-in { animation: rotateIn 1s ease-in-out both; }
+.fade-up-scale { animation: fadeUpScale 1s ease-out both; }
+.slide-in-right { animation: slideInRight 1s ease-out both; }
+.wave { display: inline-block; animation: wave 1.2s infinite ease-in-out; transform-origin: 70% 70%; }
+.pulse-glow { animation: pulseGlow 2s infinite; }
+.magnetic-hover {
+  transition: transform 0.3s ease;
+}
+.magnetic-hover:hover {
+  transform: scale(1.05) rotate(-1deg);
+}
+
+/* ========== تطبيق الأنيميشن على عناصر حقيقية ========== */
+header { animation: slideUp 1s ease-in-out both; }
+header h1 { animation: bounce 2s infinite; }
+
+nav ul li { animation: zoomIn 1s ease-in-out both; }
+nav ul li:nth-child(1) { animation-delay: 0.2s; }
+nav ul li:nth-child(2) { animation-delay: 0.4s; }
+nav ul li:nth-child(3) { animation-delay: 0.6s; }
+
+.slider { animation: fadeIn 1.5s ease-in-out both; }
+
+.slide > span { animation: scaleIn 1.5s ease-in-out both; }
+
+.ad-slider-container { animation: slideUp 1.5s ease-in-out both; }
+
+.categories h2 { animation: slide-in-right 1s ease-out both; }
+
+.category-card {
+  animation: fade-up-scale 1s ease-out both;
+}
+.category-card:hover {
+  animation: float 2s infinite ease-in-out;
+}
+
+.product-card {
+  animation: flipIn 1s ease-out both;
+}
+.product-card:hover {
+  animation: float 2s infinite ease-in-out;
+}
+
+.featured-grid h2 {
+  animation: rotateIn 1s ease-in-out both;
+}
+
+.btn-add, .btn-details {
+  animation: pulseGlow 2s infinite;
+}
+.newsletter h2 {
+  animation: bounce 2s infinite;
+}
+
+
+.coverflow-container {
+  position: relative;
+  width: 80%;
+  max-width: 900px;
+  perspective: 1000px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.coverflow {
+  display: flex;
+  transform-style: preserve-3d;
+  transition: transform 0.5s;
+}
+
+.item {
+  width: 120px;
+  height: 180px;
+  margin: 0 10px;
+  background: #7d5fff;
+  color: white;
+  font-size: 32px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px;
+  transition: transform 0.5s, opacity 0.5s;
+}
+
+.nav-btn {
+  background: #333;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 24px;
+  cursor: pointer;
+  border-radius: 6px;
+  user-select: none;
+  z-index: 10;
+}
+
+.nav-btn:hover {
+  background: #555;
+}
+
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+<body>
+
+<header>
+  <h1>⚡ TechZone</h1>
+  <nav>
+    <ul>
+  <li><a href="index.html" class="active"><i class="fas fa-home"></i> الرئيسية</a></li>
+  <li><a href="shop.html"><i class="fas fa-store"></i> المنتجات</a></li>
+  <li><a href="product.html"><i class="fas fa-box-open"></i> تفاصيل المنتجات</a></li>
+  <li><a href="cart.html"><i class="fas fa-shopping-cart"></i> السلة</a></li>
+  <li><a href="support.html"><i class="fas fa-headset"></i> الدعم</a></li>
+  <li><a href="search.html"><i class="fas fa-search"></i> البحث</a></li>
+  <li><a href="account.html"><i class="fas fa-user"></i> حسابي</a></li>
+  <li><a href="about.html"><i class="fas fa-info-circle"></i> من نحن</a></li>
+</ul>
+
+  </nav>
+</header>
+<!-- السلايدر الأساسي -->
+<div class="slider" aria-label="سلايدر العروض">
+  <div class="slides" id="slides">
+    <!-- الشرائح ستُنشأ ديناميكياً -->
+  </div>
+</div>
+
+<!-- سلايدر إعلاني نصي مع أيقونات -->
+<div class="ad-slider-container" aria-label="سلايدر إعلاني">
+  <div class="ad-slider-track" id="adSliderTrack">
+    <!-- الإعلانات ستُنشأ ديناميكياً -->
+  </div>
+</div>
+
+<!-- الأقسام الرئيسية -->
+<section class="categories" aria-label="الأقسام الرئيسية">
+  <h2>الأقسام الرئيسية</h2>
+  <div class="cat-grid">
+    <a href="shop.html?category=هواتف" class="category-card" tabindex="0" aria-label="قسم هواتف">
+      <img src="img/phon/phone2.jfif" alt="هواتف" />
+      <p>هواتف</p>
+    </a>
+    <a href="shop.html?category=كمبيوتر" class="category-card" tabindex="0" aria-label="قسم كمبيوترات">
+      <img src="img/laptop/laptop1.jfif" alt="كمبيوترات" />
+      <p>كمبيوترات</p>
+    </a>
+    <a href="shop.html?category=شاشة" class="category-card" tabindex="0" aria-label="قسم شاشات">
+      <img src="img/LG/Samsung Curved2.jfif" alt="شاشات" />
+      <p>شاشات</p>
+    </a>
+    <a href="shop.html?category=سماعات" class="category-card" tabindex="0" aria-label="قسم سماعات">
+      <img src="img/head/headphones1.jfif" alt="سماعات" />
+      <p>سماعات</p>
+    </a>
+    <a href="shop.html?category=ساعات" class="category-card" tabindex="0" aria-label="قسم ساعات">
+      <img src="img/watch/watch1.jfif" alt="ساعات" />
+      <p>ساعات</p>
+    </a>
+    <a href="shop.html?category=منوعات الكترونية" class="category-card" tabindex="0" aria-label="قسم منوعات الكترونية">
+      <img src="img/SSD hard disk/SSD hard disk1.jfif" alt="منوعات الكترونية" />
+      <p>منوعات الكترونية</p>
+    </a>
+    <a href="shop.html?category=أجهزة تصوير" class="category-card" tabindex="0" aria-label="قسم أجهزة تصوير">
+      <img src="img/Digital camera/Digital camera1.jfif" alt="أجهزة تصوير" />
+      <p>أجهزة تصوير</p>
+    </a>
+    <a href="shop.html?category=أكسسوارات هواتف" class="category-card" tabindex="0" aria-label="قسم أكسسوارات هواتف">
+      <img src="img/Phone case/Phone case1.jfif" alt="أكسسوارات هواتف" />
+      <p>أكسسوارات هواتف</p>
+    </a>
+  </div>
+</section>
+
+<!-- الأكثر مبيعًا -->
+<section class="featured-grid" aria-label="الأكثر مبيعًا">
+  <h2>الأكثر مبيعًا</h2>
+  <div class="grid-container" id="gridContainer">
+    <!-- البطاقات تُضاف تلقائيًا هنا -->
+  </div>
+</section>
+<div class="swiper-animation">
+  <ul id="cards">
+    <li><img src="img/phon/phone2.jfif" alt="صورة 0" /></li>
+    <li><img src="img/mechanical keyboard/mechanical keyboard1.jfif" alt="صورة 1" /></li>
+    <li><img src="img/LG/BenQ Gaming1.jfif" alt="صورة 2" /></li>
+    <li><img src="img/laptop/laptop1.jfif" alt="صورة 3" /></li>
+    <li><img src="img/head/headphones1.jfif" alt="صورة 4" /></li>
+    <li><img src="img/gaming monitor/gaming monitor1.jfif" alt="صورة 5" /></li>
+    <li><img src="img/Gaming headset/Gaming headset1.jfif" alt="صورة 6" /></li>
+    <li><img src="img/Digital camera/Digital camera1.jfif" alt="صورة 7" /></li>
+    <li><img src="img/Wireless mouse/Wireless mouse1.jfif" alt="صورة 0" /></li>
+    <li><img src="img/Wireless charger/Wireless charger1.jfif" alt="صورة 1" /></li>
+    <li><img src="img/watch/watch1.jfif" alt="صورة 2" /></li>
+    <li><img src="img/Video playback/Video playback1.jfif" alt="صورة 3" /></li>
+    <li><img src="img/Tablet/Tablet1.jfif" alt="صورة 4" /></li>
+    <li><img src="img/SSD hard disk/SSD hard disk1.jfif" alt="صورة 5" /></li>
+    <li><img src="img/Professional microphone/Professional microphone1.jfif" alt="صورة 6" /></li>
+    <li><img src="img/Phone case/Phone case1.jfif" alt="صورة 7" /></li>
+    <li><img src="img/phon/phone2.jfif" alt="صورة 8" /></li>
+    <li><img src="img/phon/phone2.jfif" alt="صورة 9" /></li>
+    <li><img src="img/phon/phone2.jfif" alt="صورة 10" /></li>
+    <li><img src="img/phon/phone2.jfif" alt="صورة 11" /></li>
+    <li><img src="img/phon/phone2.jfif" alt="صورة 12" /></li>
+    <li><img src="img/phon/phone2.jfif" alt="صورة 13" /></li>
+    <li><img src="img/phon/phone2.jfif" alt="صورة 14" /></li>
+  </ul>
+  <div class="buttons">
+    <button onclick="prevCard()">PREV</button>
+    <button onclick="nextCard()">NEXT</button>
+  </div>
+</div>
+
+<style>
+.swiper-animation {
+  background: #dbd9d9d3;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.swiper-animation ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 20px;
+  transition: transform 0.5s ease;
+}
+
+.swiper-animation ul li {
+  width: 100px;
+  height: 150px;
+  background-color: #9b5de5;
+  color: white;
+  font-size: 32px;
+  text-align: center;
+  line-height: 150px;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+.swiper-animation .buttons {
+  margin-top: 20px;
+}
+
+.swiper-animation button {
+  padding: 10px 20px;
+  margin: 0 10px;
+  background-color: #333;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.swiper-animation button:hover {
+  background-color: #555;
+}
+.swiper-animation img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+.swiper-animation img:hover {
+  transform: scale(1.05);
+  filter: brightness(1.1) saturate(1.2);
+  transition: transform 0.4s ease, filter 0.4s ease;
+}
+.swiper-animation .buttons {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 20px;
+}
+.swiper-animation .buttons button {
+  padding: 10px 20px;
+  background-color: #007acc;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+.swiper-animation .buttons button:hover {
+  background-color: #005f99;
+}
+.swiper-animation .buttons button:active {
+  transform: scale(0.95);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+.swiper-animation .buttons button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 122, 204, 0.5);
+}
+.swiper-animation ul {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+.swiper-animation ul li {
+  scroll-snap-align: center;    
+  flex-shrink: 0;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+}
+
+
+
+
+</style>
+
+<script>
+  const cards = document.getElementById("cards");
+  let swiperCurrentIndex = 0;
+
+  function updatePosition() {
+    const cardWidth = 120; // عرض البطاقة + الفراغ بين العناصر
+    cards.style.transform = `translateX(${-swiperCurrentIndex * cardWidth}px)`;
+  }
+
+  function nextCard() {
+    if (swiperCurrentIndex < cards.children.length - 1) {
+      swiperCurrentIndex++;
+      updatePosition();
+    }
+  }
+
+  function prevCard() {
+    if (swiperCurrentIndex > 0) {
+      swiperCurrentIndex--;
+      updatePosition();
+    }
+  }
+</script>
+
+
+
+<!-- مراجعات العملاء -->
+<section class="reviews" aria-label="مراجعات العملاء">
+  <div class="review active" tabindex="0" aria-live="polite">
+    💬 أفضل تجربة شراء على الإطلاق، خدمة ممتازة وسرعة في التوصيل! - محمد
+  </div>
+  <div class="review" tabindex="0" aria-live="polite">
+    💬 الأسعار مناسبة والمنتجات أصلية 100%. شكراً TechZone - سارة
+  </div>
+  <div class="review" tabindex="0" aria-live="polite">
+    💬 دعم فني متجاوب وخدمة عملاء مميزة، أنصح الجميع بالشراء من هنا! - أحمد
+  </div>
+</section>
+
+<!-- النشرة البريدية -->
+<section class="newsletter" aria-label="النشرة البريدية">
+  <h2>📬 اشترك في نشرتنا البريدية</h2>
+  <input
+    type="email"
+    id="email"
+    aria-label="البريد الإلكتروني"
+    placeholder="أدخل بريدك الإلكتروني"
+    required
+  />
+  <button onclick="subscribe()">اشترك</button>
+  <div class="msg" id="subscribeMsg" aria-live="polite"></div>
+</section>
+<div id="scrollTop" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })">↑</div>
+
+<footer>
+  <div class="footer-container">
+    <div class="footer-section about">
+      <h3>عن الشركة</h3>
+<p>
+  ⚡ TechZone هي شركة رائدة في توزيع وبيع الأجهزة الإلكترونية المتنوعة، نتمتع بخبرة واسعة تمتد لسنوات عديدة في السوق المصري والعالمي. نحن ملتزمون بتقديم أحدث وأفضل المنتجات التي تلبي احتياجات عملائنا بجودة لا مثيل لها وخدمة عملاء متميزة. رؤيتنا هي تسهيل حياة الناس من خلال توفير حلول تكنولوجية مبتكرة، مع ضمان تجربة شراء سلسة وآمنة. في TechZone، نؤمن بأن التكنولوجيا هي مستقبل الحياة، ونحن هنا لنكون شركاؤكم في هذا المستقبل.
+</p>
+    </div>
+    <div class="footer-section links">
+      <h3>روابط مهمة</h3>
+      <ul>
+        <li><a href="#">الرئيسية</a></li>
+        <li><a href="#">المنتجات</a></li>
+        <li><a href="#">عنا</a></li>
+        <li><a href="#">اتصل بنا</a></li>
+        <li><a href="#">سياسة الخصوصية</a></li>
+      </ul>
+    </div>
+    <div class="footer-section contact">
+      <h3>تواصل معنا</h3>
+      <p>📍 العاشر من رمضان - المجاورة 7</p>
+      <p>📞 الهاتف: 0123456789</p>
+      <p>✉ البريد الإلكتروني: TechZone121@gmail.com</p>
+      <div class="social-icons">
+        <a href="#" aria-label="فيسبوك" target="_blank" rel="noopener noreferrer">
+          <svg width="24" height="24" fill="#55acee" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M22 12c0-5.522-4.477-10-10-10S2 6.478 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54v-2.89h2.54v-2.204c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.462h-1.26c-1.243 0-1.63.772-1.63 1.562v1.876h2.773l-.443 2.89h-2.33v6.987C18.343 21.128 22 16.991 22 12z"/>
+          </svg>
+        </a>
+        <a href="#" aria-label="تويتر" target="_blank" rel="noopener noreferrer">
+          <svg width="24" height="24" fill="#1da1f2" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M23 3a10.9 10.9 0 01-3.14.86 4.48 4.48 0 001.98-2.48 9.14 9.14 0 01-2.9 1.1 4.52 4.52 0 00-7.7 4.13A12.86 12.86 0 013 4.78a4.52 4.52 0 001.4 6.04 4.42 4.42 0 01-2.05-.56v.06a4.52 4.52 0 003.63 4.43 4.52 4.52 0 01-2.04.08 4.52 4.52 0 004.21 3.14A9.06 9.06 0 013 19.54a12.84 12.84 0 006.92 2.03c8.3 0 12.85-6.9 12.85-12.85 0-.2 0-.39-.01-.58A9.2 9.2 0 0023 3z"/>
+          </svg>
+        </a>
+        <a href="#" aria-label="إنستغرام" target="_blank" rel="noopener noreferrer">
+          <svg width="24" height="24" fill="#e1306c" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M7 2C4.243 2 2 4.243 2 7v10c0 2.757 2.243 5 5 5h10c2.757 0 5-2.243 5-5V7c0-2.757-2.243-5-5-5H7zm10 3a1 1 0 110 2 1 1 0 010-2zm-5 2.5a4.5 4.5 0 110 9 4.5 4.5 0 010-9zm0 2a2.5 2.5 0 100 5 2.5 2.5 0 000-5z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 جميع الحقوق محفوظة ⚡ TechZone  </p>
+  </div>
+</footer>
+
+<style>
+  footer {
+    background: #001f3f; /* أزرق داكن جداً */
+    color: #eee; /* نص فاتح */
+    font-family: 'Cairo', sans-serif;
+    user-select: none;
+  }
+  .footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1100px;
+    margin: auto;
+    padding: 40px 20px 25px;
+  }
+  .footer-section {
+    flex: 1 1 280px;
+    margin: 10px 20px;
+  }
+  .footer-section h3 {
+    font-size: 22px;
+    margin-bottom: 20px;
+    letter-spacing: 0.04em;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    color: #fff;
+  }
+  .footer-section p, 
+  .footer-section ul {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #ddd;
+  }
+  .footer-section ul {
+    list-style: none;
+    padding: 0;
+  }
+  .footer-section ul li {
+    margin-bottom: 12px;
+  }
+  .footer-section ul li a {
+    color: #a0cfff; /* أزرق فاتح */
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  .footer-section ul li a:hover {
+    color: #00aaff;
+    text-decoration: underline;
+  }
+
+  /* أيقونات التواصل */
+  .social-icons {
+    margin-top: 15px;
+    display: flex;
+    gap: 18px;
+  }
+  .social-icons a {
+    display: inline-block;
+    transition: transform 0.3s ease, filter 0.3s ease;
+    filter: drop-shadow(0 0 2px rgba(0,0,0,0.4));
+  }
+  .social-icons a:hover {
+    transform: scale(1.2);
+    filter: drop-shadow(0 0 6px #00aaff);
+  }
+
+  /* القسم الأسفل */
+  .footer-bottom {
+    background: #000c19; /* أزرق غامق جداً */
+    text-align: center;
+    padding: 18px 10px;
+    font-size: 14px;
+    letter-spacing: 0.02em;
+    color: #bbb;
+    user-select: none;
+  }
+
+  /* استجابة */
+  @media (max-width: 768px) {
+    .footer-container {
+      flex-direction: column;
+      padding: 30px 20px 20px;
+    }
+    .footer-section {
+      margin: 20px 0;
+    }
+  }
+</style>
+
+<script>
+   /* === سلايدر الأساسي مع تلاشي === */
+  const slidesData = [
+    { image: 'img/laptop/laptop1.jfif', text: 'أحدث العروض التقنية 2025' },
+    { image: 'img/splash/RazerBlade3.jfif', text: 'تخفيضات تصل إلى 50% على الهواتف' },
+    { image: 'img/gg.jfif', text: 'اشتري الآن وادفع لاحقاً بدون فوائد' },
+    { image: 'img/head/headphones1.jfif', text: 'أحدث العروض التقنية 2025' },
+    { image: 'img/watch/watch1.jfif', text: 'تخفيضات تصل إلى 50% على الهواتف' },
+    { image: 'img/splash/HPEnvy2.jfif', text: 'اشتري الآن وادفع لاحقاً بدون فوائد' },
+    { image: 'img/splash/RazerBlade3.jfif', text: 'أحدث العروض التقنية 2025' },
+    { image: 'img/splash/phone3.jfif', text: 'تخفيضات تصل إلى 50% على الهواتف' },
+    { image: 'img/splash/phone4.jfif', text: 'اشتري الآن وادفع لاحقاً بدون فوائد' },
+    { image: 'img/splash/RealmePro.jfif', text: 'أحدث العروض التقنية 2025' },
+    { image: 'img/splash/DellInspiron1.jfif', text: 'تخفيضات تصل إلى 50% على الهواتف' },
+    { image: 'img/splash/Phonecase1.jfif', text: 'اشتري الآن وادفع لاحقاً بدون فوائد' }
+  ];
+
+  const slidesContainer = document.getElementById('slides');
+
+  let currentSlide = 0;
+  let slideInterval;
+
+  function createSlides() {
+    slidesData.forEach(({ image, text }, index) => {
+      const slide = document.createElement('div');
+      slide.className = 'slide';
+      slide.style.backgroundImage = `url(${image})`;
+      slide.setAttribute('aria-hidden', 'true');
+      slide.innerHTML = `<span>${text}</span>`;
+      slidesContainer.appendChild(slide);
+    });
+    // تفعيل الشريحة الأولى
+    slidesContainer.children[0].classList.add('active');
+    slidesContainer.children[0].setAttribute('aria-hidden', 'false');
+  }
+
+  function showSlide(index) {
+    const slides = slidesContainer.children;
+    for (let i = 0; i < slides.length; i++) {
+      slides[i].classList.remove('active');
+      slides[i].setAttribute('aria-hidden', 'true');
+    }
+    slides[index].classList.add('active');
+    slides[index].setAttribute('aria-hidden', 'false');
+    currentSlide = index;
+  }
+
+  function nextSlide() {
+    let nextIndex = (currentSlide + 1) % slidesData.length;
+    showSlide(nextIndex);
+  }
+
+  function startSlider() {
+    slideInterval = setInterval(nextSlide, 2000);
+  }
+
+  function stopSlider() {
+    clearInterval(slideInterval);
+  }
+
+  slidesContainer.parentElement.addEventListener('mouseenter', stopSlider);
+  slidesContainer.parentElement.addEventListener('mouseleave', startSlider);
+
+  createSlides();
+  startSlider();
+  // بيانات السلايدر الإعلاني (نصوص + أيقونات)
+  const adItems = [
+  { icon: 'https://img.icons8.com/ios-filled/50/ffffff/shipped.png', text: 'شحن مجاني للطلبات فوق 5000 جنيه' },
+  { icon: 'https://img.icons8.com/ios-filled/50/ffffff/guarantee.png', text: 'ضمان لمدة عامين على كل الأجهزة' },
+  { icon: 'https://img.icons8.com/ios-filled/50/ffffff/customer-support.png', text: 'دعم فني متواصل 24/7' },
+  { icon: 'https://img.icons8.com/ios-filled/50/ffffff/discount.png', text: 'عروض وخصومات شهرية حصرية' },
+];
+
+const adSliderTrack = document.getElementById('adSliderTrack');
+
+function createAdItems() {
+  const repeatedItems = [...adItems, ...adItems]; // لتكرار العناصر لضمان الاستمرار
+  repeatedItems.forEach(({ icon, text }) => {
+    const div = document.createElement('div');
+    div.className = 'ad-item';
+    div.style.display = 'inline-flex';
+    div.style.alignItems = 'center';
+    div.style.gap = '10px';
+    div.style.fontWeight = 'bold';
+    div.innerHTML = `<img src="${icon}" alt="" aria-hidden="true" style="width:24px; height:24px;"> <span>${text}</span>`;
+    adSliderTrack.appendChild(div);
+  });
+}
+createAdItems();
+
+let posX = -adSliderTrack.scrollWidth / 2; // نبدأ من النصف - عشان نمرر للجهة اليمنى
+
+const speed = 1; // سرعة الحركة (موجبة)
+
+function animate() {
+  posX += speed; // نحرك لليمين (بزيادة posX)
+
+  // إذا تجاوزنا نقطة البداية (0) نرجع للنقطة السالبة (المنتصف)
+  if (posX >= 0) {
+    posX = -adSliderTrack.scrollWidth / 2;
+  }
+
+  adSliderTrack.style.transform = `translateX(${posX}px)`;
+  requestAnimationFrame(animate);
+}
+animate();
+
+
+   // الأكثر مبيعًا - بيانات موسعة
+   const featuredProducts = [
+    { id: 101, name: 'هاتف ذكي', price: 20000, image: 'img/phon/phone2.jfif', stars: 4.7 },
+    { id: 2, name: 'لابتوب', price: 15000, image: 'img/laptop/laptop1.jfif', stars: 4.9 },
+    { id: 103, name: 'سماعات', price: 1200, image: 'img/head/headphones1.jfif', stars: 4.6 },
+    { id: 104, name: 'ساعة ذكية', price: 3500, image: 'img/watch/watch1.jfif', stars: 4.5 },
+    { id: 105, name: 'تابلت', price: 5000, image: 'img/Tablet/Tablet1.jfif', stars: 4.8 },
+    { id: 106, name: 'كاميرا رقمية', price: 11000, image: 'img/Digital camera/Digital camera1.jfif', stars: 4.9 },
+    { id: 107, name: 'مايكروفون احترافي', price: 1800, image: 'img/Professional microphone/Professional microphone1.jfif', stars: 4.6 },
+    { id: 108, name: 'قرص صلب SSD', price: 900, image: 'img/SSD hard disk/SSD hard disk1.jfif', stars: 4.4 },
+    { id: 109, name: 'لوحة مفاتيح ميكانيكية', price: 1100, image: 'img/mechanical keyboard/mechanical keyboard1.jfif', stars: 4.7 },
+    { id: 110, name: 'شاحن لاسلكي', price: 450, image: 'img/Wireless charger/Wireless charger1.jfif', stars: 4.3 },
+    { id: 111, name: 'سماعة رأس ألعاب', price: 2200, image: 'img/Gaming headset/Gaming headset2.jfif', stars: 4.8 },
+    { id: 112, name: 'Video playback devices', price: 3000, image: 'img/Video playback/Video playback1.jfif', stars: 4.5 },
+    { id: 113, name: 'شاشة ألعاب 27 بوصة', price: 13000, image: 'img/gaming monitor/gaming monitor1.jfif', stars: 4.9 },
+    { id: 114, name: 'ماوس لاسلكي', price: 700, image: 'img/Wireless mouse/Wireless mouse1.jfif', stars: 4.4 },
+    { id: 115, name: 'حافظة هاتف', price: 150, image: 'img/Phone case/Phone case1.jfif', stars: 4.1 },
+  ];
+
+  function starsHTML(stars) {
+    const fullStars = Math.floor(stars);
+    const halfStar = stars - fullStars >= 0.5;
+    let html = '';
+    for (let i = 0; i < fullStars; i++) html += '★';
+    if (halfStar) html += '☆';
+    return `<span style="color: gold; font-size: 16px;">${html}</span>`;
+  }
+
+  const container = document.getElementById('gridContainer');
+
+  featuredProducts.forEach(p => {
+  const card = document.createElement('div');
+  card.className = 'product-card';
+  card.innerHTML = `
+    <img src="${p.image}" alt="${p.name}" />
+    <h3>${p.name}</h3>
+    <div class="price">${p.price.toLocaleString()} جنيه</div>
+    <div class="stars">${starsHTML(p.stars)}</div>
+    <button class="btn-add" onclick="addToCart(${p.id})">🛒 أضف إلى السلة</button>
+    <button class="btn-details" onclick="goToDetails(${p.id})">تفاصيل</button>
+  `;
+  container.appendChild(card);
+});
+
+
+  function addToCart(id) {
+    alert("تمت إضافة المنتج رقم " + id);
+  }
+
+  function goToDetails(id) {
+    alert("تفاصيل المنتج رقم " + id);
+  }
+
+  // إضافة إلى السلة
+  function addToCart(id) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const product = featuredProducts.find(p => p.id === id);
+    if (!product) return alert('خطأ في إضافة المنتج.');
+    const existing = cart.find(p => p.id === id);
+    if (existing) {
+      existing.quantity++;
+    } else {
+      cart.push({...product, quantity: 1});
+    }
+    localStorage.setItem('cart', JSON.stringify(cart));
+    alert(`✅ تم إضافة "${product.name}" إلى السلة!`);
+  }
+
+  // انتقال لتفاصيل المنتج مع ID
+  function goToDetails(id) {
+    window.location.href = `product.html?id=${id}`;
+  }
+
+  // مراجعات العملاء - التبديل التلقائي
+  const reviews = document.querySelectorAll('.review');
+  let currentReview = 0;
+  setInterval(() => {
+    reviews[currentReview].classList.remove('active');
+    currentReview = (currentReview + 1) % reviews.length;
+    reviews[currentReview].classList.add('active');
+  }, 7000);
+
+  // الاشتراك في النشرة البريدية
+  function subscribe() {
+    const emailInput = document.getElementById('email');
+    const msg = document.getElementById('subscribeMsg');
+    const email = emailInput.value.trim();
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!regex.test(email)) {
+      msg.textContent = 'يرجى إدخال بريد إلكتروني صالح.';
+      msg.style.color = 'tomato';
+      emailInput.focus();
+      return;
+    }
+
+    localStorage.setItem('newsletter', email);
+    msg.textContent = '✅ تم الاشتراك بنجاح!';
+    msg.style.color = '#0f0';
+    emailInput.value = '';
+  }
+   const scrollBtn = document.getElementById("scrollTop");
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 300) {
+      scrollBtn.classList.add("show");
+    } else {
+      scrollBtn.classList.remove("show");
+    }
+  });
+
+
+  const items = document.querySelectorAll('.item');
+const prevBtn = document.querySelector('.prev');
+const nextBtn = document.querySelector('.next');
+let currentIndex = 0;
+
+function updateCoverflow() {
+  items.forEach((item, index) => {
+    const offset = index - currentIndex;
+    const absOffset = Math.abs(offset);
+
+    item.style.transform = `
+      translateX(${offset * 120}px)
+      scale(${1 - absOffset * 0.1})
+      rotateY(${offset * -30}deg)
+    `;
+
+    item.style.opacity = absOffset > 3 ? 0 : 1;
+    item.style.zIndex = 100 - absOffset;
+  });
+}
+
+prevBtn.addEventListener('click', () => {
+  currentIndex = (currentIndex - 1 + items.length) % items.length;
+  updateCoverflow();
+});
+
+nextBtn.addEventListener('click', () => {
+  currentIndex = (currentIndex + 1) % items.length;
+  updateCoverflow();
+});
+
+// Initialize
+updateCoverflow();
+
+
+
+</script>
+
+</body>
+</html>
